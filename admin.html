@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aasif Watch Admin</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <link rel="stylesheet" href="assets/css/admin.css" />
+</head>
+<body>
+  <div class="bg"></div>
+
+  <!-- LOGIN VIEW (only) -->
+  <main class="wrap" id="loginView">
+    <header class="loginTop">
+      <div class="brand">AASIF WATCH</div>
+      <div class="sub">Admin Login</div>
+    </header>
+
+    <section class="card loginCard">
+      <h1 class="h">Login</h1>
+      <p class="p">Only one account is allowed.</p>
+
+      <form class="form" id="loginForm" autocomplete="off">
+        <label class="field">
+          <span>Username</span>
+          <input id="loginUser" type="text" placeholder="aasif" required />
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input id="loginPass" type="password" placeholder="Aasifkhan" required />
+        </label>
+        <button class="btn btn--primary" type="submit">Sign in</button>
+        <div class="msg" id="loginMsg" role="status"></div>
+      </form>
+    </section>
+  </main>
+
+  <!-- APP VIEW (hidden until login) -->
+  <main class="app" id="appView" hidden>
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <div class="brand">AASIF WATCH</div>
+        <div class="sub">Admin Dashboard</div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav__item active" type="button" data-target="heroSection">
+          <i class='bx bx-image'></i><span>Hero Image</span>
+        </button>
+        <button class="nav__item" type="button" data-target="featuredSection">
+          <i class='bx bx-star'></i><span>Featured</span>
+        </button>
+        <button class="nav__item" type="button" data-target="productsSection">
+          <i class='bx bx-package'></i><span>Premium Products</span>
+        </button>
+        <button class="nav__item" type="button" data-target="ordersSection">
+          <i class='bx bx-receipt'></i><span>Orders</span>
+        </button>
+      </nav>
+
+      <div class="sidebar__foot">
+        <a class="link" href="index.html">View site</a>
+        <button class="btn btn--ghost" id="logoutBtn" type="button">Logout</button>
+      </div>
+    </aside>
+
+    <section class="content">
+      <header class="contentTop">
+        <div class="contentTop__title" id="pageTitle">Hero Image</div>
+        <div class="contentTop__actions">
+          <button class="btn btn--primary" id="primaryActionBtn" type="button">Change Hero</button>
+        </div>
+      </header>
+
+      <section class="panel active" id="heroSection">
+        <div class="card">
+          <h2 class="h2">Hero image</h2>
+          <p class="p">This is the current hero image on the homepage. You can replace it (only one is stored).</p>
+
+          <div class="heroPreview" id="heroPreview">
+            <div class="heroPreview__shade"></div>
+            <div class="heroPreview__label">Current hero</div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+            <button class="btn btn--primary" type="button" id="changeHeroBtn">Change Hero</button>
+            <button class="btn btn--ghost" type="button" id="removeHeroBtn">Remove Hero</button>
+          </div>
+          <div class="msg" id="heroMsg" role="status"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="featuredSection">
+        <div class="card">
+          <div class="cardHead">
+            <div>
+              <h2 class="h2">Featured Timepieces</h2>
+              <p class="p">Add / edit / delete items. They will appear on the homepage.</p>
+            </div>
+            <button class="btn btn--primary" id="addFeaturedBtn" type="button">Add New</button>
+          </div>
+          <div class="list" id="featuredList"></div>
+          <div class="msg" id="featuredMsg" role="status"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="productsSection">
+        <div class="card">
+          <div class="cardHead">
+            <div>
+              <h2 class="h2">Premium Products</h2>
+              <p class="p">Add / edit / delete items. Rating stays 4.9 on the homepage.</p>
+            </div>
+            <button class="btn btn--primary" id="addProductBtn" type="button">Add New</button>
+          </div>
+          <div class="list" id="productList"></div>
+          <div class="msg" id="productMsg" role="status"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="ordersSection">
+        <div class="card">
+          <div class="cardHead">
+            <div>
+              <h2 class="h2">Orders</h2>
+              <p class="p">View orders placed from the website and mark them complete.</p>
+            </div>
+          </div>
+          <div class="list" id="ordersList"></div>
+          <div class="msg" id="ordersMsg" role="status"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- MODAL: HERO -->
+  <div class="modal" id="heroModal" hidden>
+    <div class="modal__backdrop" data-close="heroModal"></div>
+    <div class="modal__panel">
+      <div class="modal__top">
+        <div class="modal__title">Change Hero Image</div>
+        <button class="iconBtn" type="button" data-close="heroModal"><i class='bx bx-x'></i></button>
+      </div>
+      <form class="form" id="heroForm">
+        <label class="field">
+          <span>Hero image</span>
+          <input id="heroFile" type="file" accept="image/*" required />
+        </label>
+        <button class="btn btn--primary" type="submit">Upload & Save</button>
+        <div class="msg" id="heroModalMsg" role="status"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ITEM (Featured / Products) -->
+  <div class="modal" id="itemModal" hidden>
+    <div class="modal__backdrop" data-close="itemModal"></div>
+    <div class="modal__panel">
+      <div class="modal__top">
+        <div class="modal__title" id="itemModalTitle">Add item</div>
+        <button class="iconBtn" type="button" data-close="itemModal"><i class='bx bx-x'></i></button>
+      </div>
+
+      <form class="form" id="itemForm">
+        <input type="hidden" id="itemTable" />
+        <input type="hidden" id="itemId" />
+        <input type="hidden" id="itemExistingImage" />
+
+        <label class="field">
+          <span>Image (optional when editing)</span>
+          <input id="itemFile" type="file" accept="image/*" />
+        </label>
+        <label class="field">
+          <span>Name</span>
+          <input id="itemName" type="text" required />
+        </label>
+        <div class="row">
+          <label class="field">
+            <span>Actual price (PKR)</span>
+            <input id="itemActual" type="number" min="0" step="1" required />
+          </label>
+          <label class="field">
+            <span>Your price (PKR)</span>
+            <input id="itemMy" type="number" min="0" step="1" required />
+          </label>
+        </div>
+        <button class="btn btn--primary" type="submit" id="itemSubmitBtn">Save</button>
+        <div class="msg" id="itemModalMsg" role="status"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ORDER DETAILS -->
+  <div class="modal" id="orderModal" hidden>
+    <div class="modal__backdrop" data-close="orderModal"></div>
+    <div class="modal__panel">
+      <div class="modal__top">
+        <div class="modal__title" id="orderModalTitle">Order</div>
+        <button class="iconBtn" type="button" data-close="orderModal"><i class='bx bx-x'></i></button>
+      </div>
+
+      <div id="orderDetail" style="display:grid;gap:10px;"></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px;">
+        <button class="btn btn--ghost" type="button" data-close="orderModal">Close</button>
+        <button class="btn btn--primary" type="button" id="markCompleteBtn">Mark Complete</button>
+      </div>
+      <div class="msg" id="orderModalMsg" role="status"></div>
+    </div>
+  </div>
+
+  <!-- Supabase config + admin logic -->
+  <script src="assets/js/supabaseConfig.js"></script>
+  <script type="module" src="assets/js/admin.js"></script>
+</body>
+</html>
+
