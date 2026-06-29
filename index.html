@@ -994,6 +994,13 @@
         .card-actions {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .card-actions--dual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
         .card-action-btn {
@@ -1001,90 +1008,55 @@
             min-width: 0;
         }
 
-        .featured__item-cta .card-actions .featured__item-btn,
-        .new__item-info .card-actions .new__item-btn {
-            width: auto;
-        }
-
-        .card-whatsapp-btn {
-            flex: 1;
-            min-width: 0;
+        .card-btn {
+            width: 100%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
             padding: 13px 10px;
-            background: transparent;
-            border: 1px solid rgba(37, 211, 102, 0.45);
-            color: #25D366;
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 600;
-            text-decoration: none;
             transition: all 0.3s ease;
             cursor: pointer;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
         }
 
-        .card-whatsapp-btn i {
-            font-size: 1.05rem;
+        .card-btn i { font-size: 0.95rem; }
+
+        .card-btn--cart {
+            border-color: rgba(200, 164, 94, 0.45);
+            color: var(--primary-light);
         }
 
-        .card-whatsapp-btn:hover {
-            background: #25D366;
-            border-color: #25D366;
-            color: #fff;
+        .card-btn--cart:hover {
+            background: rgba(200, 164, 94, 0.12);
+            border-color: var(--primary);
+            color: var(--primary);
         }
 
-        .card-whatsapp-btn--icon {
-            flex: 0 0 auto;
-            width: 44px;
-            height: 44px;
-            padding: 0;
-            border-radius: 50%;
+        .card-btn--buy {
+            background: var(--gradient-gold);
+            border-color: transparent;
+            color: #000;
         }
 
-        .card-whatsapp-btn--icon span {
-            display: none;
+        .card-btn--buy:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-gold);
         }
 
-        .product-card__quick-btn--whatsapp {
-            color: #25D366;
-            border-color: rgba(37, 211, 102, 0.35);
-        }
-
-        .product-card__quick-btn--whatsapp:hover {
-            background: #25D366;
-            border-color: #25D366;
-            color: #fff;
-        }
-
-        .product-card__quick .card-whatsapp-btn {
-            flex: 1;
+        .featured__item-cta .card-actions .featured__item-btn,
+        .new__item-info .card-actions .new__item-btn {
             width: auto;
-            height: auto;
-            border-radius: 0;
-            padding: 10px;
-            letter-spacing: 0;
-            font-size: 1rem;
-            background: rgba(8, 8, 12, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #25D366;
-        }
-
-        .product-card__quick .card-whatsapp-btn:hover {
-            background: #25D366;
-            border-color: #25D366;
-            color: #fff;
         }
 
         .card-actions--product {
             margin-top: 14px;
-        }
-
-        .card-actions--product .featured__item-btn {
-            width: auto;
         }
 
         /* ==================== STORY / ABOUT ==================== */
@@ -1234,6 +1206,8 @@
             opacity: 0;
             transform: translateY(10px);
             transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
         }
 
         .product-card:hover .product-card__quick {
@@ -1298,36 +1272,61 @@
         .product-colors {
             display: flex;
             flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+            align-items: center;
+            padding: 10px 12px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+        }
+
+        .product-colors__swatches {
+            display: flex;
+            flex-wrap: wrap;
             gap: 8px;
-            margin-top: 10px;
             align-items: center;
         }
 
         .color-swatch {
-            width: 22px;
-            height: 22px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
             padding: 0;
             transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
             flex-shrink: 0;
+            position: relative;
+        }
+
+        .color-swatch::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.15);
         }
 
         .color-swatch:hover {
-            transform: scale(1.1);
+            transform: scale(1.12);
         }
 
         .color-swatch.active {
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(200, 164, 94, 0.35);
-            transform: scale(1.12);
+            box-shadow: 0 0 0 3px rgba(200, 164, 94, 0.28);
+            transform: scale(1.14);
         }
 
         .color-swatch-label {
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
+            margin-left: auto;
+            font-size: 0.68rem;
+            color: var(--primary);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: 5px 10px;
+            background: rgba(200, 164, 94, 0.1);
+            border: 1px solid rgba(200, 164, 94, 0.22);
         }
 
         .cart__card-color {
@@ -1798,24 +1797,43 @@
 
         .footer__bottom-link:hover { color: var(--primary); }
 
-        /* ==================== SCROLL UP ==================== */
-        .scroll-top {
+        /* ==================== FLOAT WHATSAPP ==================== */
+        .float-whatsapp {
             position: fixed;
-            bottom: -60px;
+            bottom: 30px;
             right: 30px;
-            width: 46px; height: 46px;
-            background: var(--primary);
-            color: #000;
+            width: 56px;
+            height: 56px;
+            background: #25D366;
+            color: #fff;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.75rem;
             z-index: 999;
+            box-shadow: 0 8px 28px rgba(37, 211, 102, 0.45);
             transition: all 0.3s ease;
         }
 
-        .scroll-top.visible { bottom: 30px; }
-        .scroll-top:hover { transform: translateY(-4px); box-shadow: var(--shadow-gold); }
+        .float-whatsapp:hover {
+            transform: scale(1.08) translateY(-3px);
+            box-shadow: 0 14px 36px rgba(37, 211, 102, 0.55);
+            color: #fff;
+        }
+
+        .float-whatsapp__pulse {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid rgba(37, 211, 102, 0.5);
+            animation: waPulse 2s ease-out infinite;
+        }
+
+        @keyframes waPulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.45); opacity: 0; }
+        }
 
         /* ==================== REVEAL ANIMATIONS ==================== */
         .reveal {
@@ -1939,6 +1957,7 @@
             .hero__heading { font-size: 1.75rem; }
             .hero__actions { flex-direction: column; align-items: stretch; }
             .products__layout { grid-template-columns: 1fr; }
+            .card-actions--dual { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -2350,8 +2369,9 @@
     </footer>
 
     <!-- SCROLL TOP -->
-    <a href="#" class="scroll-top" id="scrollTop">
-        <i class='bx bx-up-arrow-alt'></i>
+    <a href="https://wa.me/923422244752" class="float-whatsapp" id="floatWhatsApp" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+        <span class="float-whatsapp__pulse"></span>
+        <i class='bx bxl-whatsapp'></i>
     </a>
 
     <!-- ==================== JAVASCRIPT ==================== -->
@@ -2511,6 +2531,7 @@
     const openCart = () => { cart.classList.add('show-cart'); overlay.classList.add('active'); };
     const closeCart = () => { cart.classList.remove('show-cart'); overlay.classList.remove('active'); };
     window.openCart = openCart;
+    window.closeCart = closeCart;
 
     document.getElementById('cart-open').addEventListener('click', openCart);
     document.getElementById('cart-close').addEventListener('click', closeCart);
@@ -2544,9 +2565,7 @@
         }
     });
 
-    // ===== SCROLL TOP =====
-    const scrollBtn = document.getElementById('scrollTop');
-    window.addEventListener('scroll', () => scrollBtn.classList.toggle('visible', window.scrollY > 500));
+    // ===== SCROLL TOP removed — floating WhatsApp button used instead =====
 
     // ===== REVEAL =====
     const observer = new IntersectionObserver(entries => {
@@ -2586,7 +2605,7 @@
     document.getElementById('t-prev').addEventListener('click', () => { tIdx = (tIdx - 1 + testimonials.length) % testimonials.length; setTestimonial(tIdx); });
 
     // ===== RIPPLE =====
-    document.querySelectorAll('.btn,.featured__item-btn,.new__item-btn,.product-card__quick-btn,.cart__checkout-btn,.card-whatsapp-btn').forEach(b => {
+    document.querySelectorAll('.btn,.featured__item-btn,.new__item-btn,.product-card__quick-btn,.cart__checkout-btn,.card-btn').forEach(b => {
         b.addEventListener('click', function(e) {
             const r = this.getBoundingClientRect();
             const s = Math.max(r.width, r.height);
@@ -2639,6 +2658,10 @@
         return [];
       }
 
+      function productUrl(table, id) {
+        return `product.html?table=${encodeURIComponent(table)}&id=${encodeURIComponent(id)}`;
+      }
+
       function buildColorSwatchesHtml(colors, fallbackImage) {
         const list = parseColors(colors);
         if (!list.length) return "";
@@ -2656,7 +2679,24 @@
         `
           )
           .join("");
-        return `<div class="product-colors">${swatches}<span class="color-swatch-label">${escapeHtml(list[0].name || "")}</span></div>`;
+        return `<div class="product-colors"><div class="product-colors__swatches">${swatches}</div><span class="color-swatch-label">${escapeHtml(list[0].name || "")}</span></div>`;
+      }
+
+      function cardItemAttrs(table, r, defaultImage, defaultColorName) {
+        return `data-source-table="${escapeAttr(table)}" data-source-id="${r.id}" data-name="${escapeAttr(r.name || "")}" data-image="${escapeAttr(defaultImage)}" data-color-name="${escapeAttr(defaultColorName)}" data-unit-price="${Number(r.my_price || 0)}" data-actual-price="${Number(r.actual_price || 0)}"`;
+      }
+
+      function cardButtonsHtml(table, r, defaultImage, defaultColorName) {
+        const attrs = cardItemAttrs(table, r, defaultImage, defaultColorName);
+        return `
+          <div class="card-actions card-actions--dual">
+            <button type="button" class="card-btn card-btn--cart" data-add-to-cart="1" ${attrs}>
+              <i class='bx bx-cart-add'></i> Add to Cart
+            </button>
+            <button type="button" class="card-btn card-btn--buy" data-buy-now="1" ${attrs}>
+              <i class='bx bx-bolt'></i> Buy Now
+            </button>
+          </div>`;
       }
 
       function applyColorToCard(card, swatch) {
@@ -2669,52 +2709,24 @@
         if (img && imgUrl) img.src = imgUrl;
         const label = card.querySelector(".color-swatch-label");
         if (label) label.textContent = colorName;
-        card.querySelectorAll("[data-add-to-cart]").forEach((btn) => {
+        card.querySelectorAll("[data-add-to-cart], [data-buy-now]").forEach((btn) => {
           if (imgUrl) btn.setAttribute("data-image", imgUrl);
           btn.setAttribute("data-color-name", colorName);
         });
-        updateWhatsAppLinksOnCard(card);
       }
 
-      function getWhatsAppNumber() {
-        const items = document.querySelectorAll(".footer__contact-item");
-        for (const item of items) {
-          const m = item.textContent.match(/\+?\d[\d\s-]{8,}/);
-          if (m) return m[0].replace(/\D/g, "");
-        }
-        return "923422244752";
-      }
-
-      function buildWhatsAppHref(name, price, colorName) {
-        let msg = `Hi, I'm interested in ${name}`;
-        if (colorName) msg += ` (${colorName} color)`;
-        msg += ` - Price: ${formatMoney(price)}. Please share more details.`;
-        return `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(msg)}`;
-      }
-
-      function whatsAppButtonHtml(name, price, colorName, extraClass = "", iconOnly = false) {
-        const href = buildWhatsAppHref(name, price, colorName);
-        return `<a class="card-whatsapp-btn${iconOnly ? " card-whatsapp-btn--icon" : ""} ${extraClass}" href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer"
-          data-whatsapp-link="1"
-          data-product-name="${escapeAttr(name || "")}"
-          data-product-price="${Number(price || 0)}"
-          data-color-name="${escapeAttr(colorName || "")}"
-          aria-label="Order ${escapeAttr(name || "watch")} on WhatsApp">
-          <i class='bx bxl-whatsapp'></i>${iconOnly ? "" : "<span>WhatsApp</span>"}
-        </a>`;
-      }
-
-      function updateWhatsAppLinksOnCard(card) {
-        if (!card) return;
-        const activeColor = card.querySelector(".color-swatch.active");
-        const colorName = activeColor?.getAttribute("data-color-name") || "";
-        card.querySelectorAll("[data-whatsapp-link]").forEach((link) => {
-          const name = link.getAttribute("data-product-name") || "";
-          const price = link.getAttribute("data-product-price") || "0";
-          const c = colorName || link.getAttribute("data-color-name") || "";
-          link.href = buildWhatsAppHref(name, price, c);
-          if (colorName) link.setAttribute("data-color-name", colorName);
-        });
+      function itemFromActionBtn(btn, card) {
+        const activeColor = card?.querySelector(".color-swatch.active");
+        return {
+          source_table: btn.getAttribute("data-source-table"),
+          source_id: Number(btn.getAttribute("data-source-id")),
+          name: btn.getAttribute("data-name") || "",
+          image_url: btn.getAttribute("data-image") || "",
+          color_name: activeColor?.getAttribute("data-color-name") || btn.getAttribute("data-color-name") || "",
+          unit_price: Number(btn.getAttribute("data-unit-price") || 0),
+          actual_price: Number(btn.getAttribute("data-actual-price") || 0),
+          qty: 1,
+        };
       }
 
       async function renderFeatured(rows) {
@@ -2732,29 +2744,20 @@
           card.setAttribute("data-product-card", "1");
           card.style.transitionDelay = `${0.1 + i * 0.1}s`;
           card.innerHTML = `
-            <div class="featured__item-visual">
+            <a href="${productUrl("featured_timepieces", r.id)}" class="featured__item-visual" style="display:block;color:inherit;">
               <span class="featured__item-tag">Sale</span>
               <img src="${escapeAttr(defaultImage)}" alt="${escapeHtml(r.name || "")}">
               <div class="featured__item-overlay">
-                <button class="btn btn--primary btn--small btn--full">Quick View</button>
+                <span class="btn btn--primary btn--small btn--full">View Details</span>
               </div>
-            </div>
+            </a>
             <div class="featured__item-info">
-              <h3 class="featured__item-name">${escapeHtml(r.name || "")}</h3>
+              <h3 class="featured__item-name"><a href="${productUrl("featured_timepieces", r.id)}" style="color:inherit;">${escapeHtml(r.name || "")}</a></h3>
               <span class="featured__item-price">${formatMoney(r.my_price)}</span>
               ${buildColorSwatchesHtml(r.colors, r.image_url)}
             </div>
             <div class="featured__item-cta">
-              <div class="card-actions">
-                <button class="featured__item-btn card-action-btn" data-add-to-cart="1"
-                  data-source-table="featured_timepieces"
-                  data-source-id="${r.id}"
-                  data-name="${escapeAttr(r.name || "")}"
-                  data-image="${escapeAttr(defaultImage)}"
-                  data-color-name="${escapeAttr(defaultColorName)}"
-                  data-unit-price="${Number(r.my_price || 0)}">Add to Cart</button>
-                ${whatsAppButtonHtml(r.name, r.my_price, defaultColorName, "card-action-btn")}
-              </div>
+              ${cardButtonsHtml("featured_timepieces", r, defaultImage, defaultColorName)}
             </div>
           `;
           grid.appendChild(card);
@@ -2776,23 +2779,15 @@
           card.style.transitionDelay = `${0.05 + i * 0.05}s`;
           card.innerHTML = `
             <div class="product-card__visual">
-              <img src="${escapeAttr(defaultImage)}" alt="${escapeHtml(r.name || "")}">
-              <div class="product-card__quick">
-                <button class="product-card__quick-btn"><i class='bx bx-heart'></i></button>
-                <button class="product-card__quick-btn" data-add-to-cart="1"
-                  data-source-table="premium_products"
-                  data-source-id="${r.id}"
-                  data-name="${escapeAttr(r.name || "")}"
-                  data-image="${escapeAttr(defaultImage)}"
-                  data-color-name="${escapeAttr(defaultColorName)}"
-                  data-unit-price="${Number(r.my_price || 0)}"
-                  data-actual-price="${Number(r.actual_price || 0)}"><i class='bx bx-shopping-bag'></i></button>
-                ${whatsAppButtonHtml(r.name, r.my_price, defaultColorName, "product-card__quick-btn product-card__quick-btn--whatsapp", true)}
-                <button class="product-card__quick-btn"><i class='bx bx-expand'></i></button>
-              </div>
+              <a href="${productUrl("premium_products", r.id)}" style="display:block;height:100%;color:inherit;">
+                <img src="${escapeAttr(defaultImage)}" alt="${escapeHtml(r.name || "")}">
+              </a>
+              <a class="product-card__quick" href="${productUrl("premium_products", r.id)}" aria-label="View details">
+                <span class="product-card__quick-btn" style="flex:1;"><i class='bx bx-show'></i> View Details</span>
+              </a>
             </div>
             <div class="product-card__body">
-              <h3 class="product-card__name">${escapeHtml(r.name || "")}</h3>
+              <h3 class="product-card__name"><a href="${productUrl("premium_products", r.id)}" style="color:inherit;">${escapeHtml(r.name || "")}</a></h3>
               ${buildColorSwatchesHtml(r.colors, r.image_url)}
               <div class="product-card__bottom">
                 <span class="product-card__price">${formatMoney(r.my_price)}</span>
@@ -2806,17 +2801,7 @@
                   ${formatMoney(r.my_price)}
                 </span>
               </div>
-              <div class="card-actions card-actions--product">
-                <button class="featured__item-btn card-action-btn" data-add-to-cart="1"
-                  data-source-table="premium_products"
-                  data-source-id="${r.id}"
-                  data-name="${escapeAttr(r.name || "")}"
-                  data-image="${escapeAttr(defaultImage)}"
-                  data-color-name="${escapeAttr(defaultColorName)}"
-                  data-unit-price="${Number(r.my_price || 0)}"
-                  data-actual-price="${Number(r.actual_price || 0)}">Add to Cart</button>
-                ${whatsAppButtonHtml(r.name, r.my_price, defaultColorName, "card-action-btn")}
-              </div>
+              ${cardButtonsHtml("premium_products", r, defaultImage, defaultColorName)}
             </div>
           `;
           grid.appendChild(card);
@@ -2838,25 +2823,15 @@
           card.setAttribute("data-product-card", "1");
           card.style.transitionDelay = `${0.1 + i * 0.1}s`;
           card.innerHTML = `
-            <div class="new__item-visual">
+            <a href="${productUrl("premium_products", r.id)}" class="new__item-visual" style="display:block;color:inherit;">
               <span class="new__item-badge">New</span>
               <img src="${escapeAttr(defaultImage)}" alt="${escapeHtml(r.name || "")}">
-            </div>
+            </a>
             <div class="new__item-info">
-              <h3 class="new__item-name">${escapeHtml(r.name || "")}</h3>
+              <h3 class="new__item-name"><a href="${productUrl("premium_products", r.id)}" style="color:inherit;">${escapeHtml(r.name || "")}</a></h3>
               <span class="new__item-price">${formatMoney(r.my_price)}</span>
               ${buildColorSwatchesHtml(r.colors, r.image_url)}
-              <div class="card-actions">
-                <button class="new__item-btn card-action-btn" data-add-to-cart="1"
-                  data-source-table="premium_products"
-                  data-source-id="${r.id}"
-                  data-name="${escapeAttr(r.name || "")}"
-                  data-image="${escapeAttr(defaultImage)}"
-                  data-color-name="${escapeAttr(defaultColorName)}"
-                  data-unit-price="${Number(r.my_price || 0)}"
-                  data-actual-price="${Number(r.actual_price || 0)}">Add to Cart</button>
-                ${whatsAppButtonHtml(r.name, r.my_price, defaultColorName, "card-action-btn")}
-              </div>
+              ${cardButtonsHtml("premium_products", r, defaultImage, defaultColorName)}
             </div>
           `;
           grid.appendChild(card);
@@ -2887,15 +2862,21 @@
         return `${it.source_table}:${it.source_id}:${it.color_name || ""}`;
       }
 
-      function addToCart(item) {
+      function addToCart(item, { openDrawer = true } = {}) {
         const cart = getCart();
         const k = cartKeyOf(item);
         const found = cart.find((x) => cartKeyOf(x) === k);
-        if (found) found.qty = Number(found.qty || 1) + 1;
-        else cart.push({ ...item, qty: 1 });
+        if (found) found.qty = Number(found.qty || 1) + Number(item.qty || 1);
+        else cart.push({ ...item, qty: Number(item.qty || 1) });
         setCart(cart);
         renderCart();
-        window.openCart?.();
+        if (openDrawer) window.openCart?.();
+      }
+
+      function buyNow(item) {
+        addToCart(item, { openDrawer: false });
+        window.closeCart?.();
+        window.openCheckout?.();
       }
 
       function updateQty(source_table, source_id, color_name, delta) {
@@ -2977,7 +2958,7 @@
           .join("");
       }
 
-      // Add-to-cart + color swatch click delegation
+      // Add-to-cart, buy now + color swatch click delegation
       document.addEventListener("click", (e) => {
         const swatch = e.target.closest("[data-color-swatch]");
         if (swatch) {
@@ -2986,20 +2967,18 @@
           return;
         }
 
+        const buyBtn = e.target.closest("[data-buy-now]");
+        if (buyBtn) {
+          e.preventDefault();
+          const card = buyBtn.closest("[data-product-card]");
+          buyNow(itemFromActionBtn(buyBtn, card));
+          return;
+        }
+
         const btn = e.target.closest("[data-add-to-cart]");
         if (btn) {
           const card = btn.closest("[data-product-card]");
-          const activeColor = card?.querySelector(".color-swatch.active");
-          const item = {
-            source_table: btn.getAttribute("data-source-table"),
-            source_id: Number(btn.getAttribute("data-source-id")),
-            name: btn.getAttribute("data-name") || "",
-            image_url: btn.getAttribute("data-image") || "",
-            color_name: activeColor?.getAttribute("data-color-name") || btn.getAttribute("data-color-name") || "",
-            unit_price: Number(btn.getAttribute("data-unit-price") || 0),
-            actual_price: Number(btn.getAttribute("data-actual-price") || 0),
-          };
-          addToCart(item);
+          addToCart(itemFromActionBtn(btn, card));
           return;
         }
 
@@ -3058,6 +3037,8 @@
         checkoutOverlay.classList.remove("active");
         checkoutModal.classList.remove("show-cart");
       };
+
+      window.openCheckout = openCheckout;
 
       if (checkoutBtn) checkoutBtn.addEventListener("click", openCheckout);
       if (checkoutClose) checkoutClose.addEventListener("click", closeCheckout);

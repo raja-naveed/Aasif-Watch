@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product | Aasif Watch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <style>
+    :root {
+      --primary: #c8a45e;
+      --primary-light: #e8d5a3;
+      --bg: #08080c;
+      --bg-secondary: #0e0e14;
+      --bg-glass: rgba(255, 255, 255, 0.04);
+      --text: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.55);
+      --text-muted: rgba(255, 255, 255, 0.25);
+      --border: rgba(255, 255, 255, 0.07);
+      --gradient-gold: linear-gradient(135deg, #c8a45e 0%, #e8d5a3 50%, #c8a45e 100%);
+    }
+    [data-theme="light"] {
+      --bg: #f4f0e8;
+      --bg-secondary: #ece6da;
+      --bg-glass: rgba(0, 0, 0, 0.03);
+      --text: #111;
+      --text-secondary: rgba(0, 0, 0, 0.5);
+      --text-muted: rgba(0, 0, 0, 0.2);
+      --border: rgba(0, 0, 0, 0.07);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input { font-family: inherit; border: none; outline: none; cursor: pointer; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+
+    .header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 18px 0; background: rgba(8,8,12,.88); backdrop-filter: blur(30px); border-bottom: 1px solid var(--border); }
+    [data-theme="light"] .header { background: rgba(244,240,232,.88); }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav__logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 8px; text-transform: uppercase; background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav__links { display: flex; gap: 28px; list-style: none; }
+    .nav__link { font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); transition: .2s; }
+    .nav__link:hover { color: var(--primary); }
+    .nav__actions { display: flex; gap: 8px; }
+    .nav__action-btn { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); font-size: 1.1rem; transition: .2s; }
+    .nav__action-btn:hover { color: var(--primary); border-color: var(--primary); }
+
+    .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 9999; opacity: 0; visibility: hidden; transition: .3s; }
+    .cart-overlay.active { opacity: 1; visibility: visible; }
+    .cart { position: fixed; top: 0; right: -440px; width: 420px; max-width: 92vw; height: 100%; background: var(--bg-secondary); border-left: 1px solid var(--border); z-index: 10001; display: flex; flex-direction: column; transition: right .45s ease; }
+    .cart.show-cart { right: 0; }
+    #checkoutModal { right: -560px; width: 520px; max-width: 92vw; }
+    #checkoutModal.show-cart { right: 0; }
+    .cart__head, .cart__foot { padding: 24px 28px; border-bottom: 1px solid var(--border); }
+    .cart__foot { border-bottom: none; border-top: 1px solid var(--border); margin-top: auto; }
+    .cart__heading { font-family: 'Space Grotesk', sans-serif; font-size: .8rem; letter-spacing: 4px; text-transform: uppercase; }
+    .cart__close { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); }
+    .cart__body { flex: 1; overflow-y: auto; padding: 20px 28px; }
+    .cart__card { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .cart__card-img { width: 68px; height: 68px; border: 1px solid var(--border); overflow: hidden; flex-shrink: 0; }
+    .cart__card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .cart__card-name { font-size: .9rem; font-weight: 600; }
+    .cart__card-color { font-size: .75rem; color: var(--primary); margin-top: 2px; }
+    .cart__card-price { display: block; margin-top: 4px; color: var(--primary); font-weight: 700; }
+    .cart__card-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+    .cart__qty { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); }
+    .cart__qty-btn, .cart__delete { width: 28px; height: 28px; display: grid; place-items: center; background: transparent; color: var(--text-secondary); }
+    .cart__checkout-btn { width: 100%; padding: 16px; background: var(--gradient-gold); color: #000; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: .72rem; margin-top: 12px; }
+
+    .product-page { padding: 120px 0 80px; min-height: 70vh; }
+    .breadcrumb { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .78rem; color: var(--text-secondary); margin-bottom: 28px; letter-spacing: 1px; }
+    .breadcrumb a:hover { color: var(--primary); }
+    .breadcrumb__sep { opacity: .4; }
+
+    .product-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .product-detail__gallery { position: sticky; top: 100px; }
+    .product-detail__main { aspect-ratio: 1; border: 1px solid var(--border); background: var(--bg-glass); overflow: hidden; }
+    .product-detail__main img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .product-detail__main:hover img { transform: scale(1.03); }
+    .product-detail__thumbs { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+    .product-detail__thumb { width: 72px; height: 72px; border: 1px solid var(--border); overflow: hidden; cursor: pointer; opacity: .65; transition: .2s; background: var(--bg-glass); }
+    .product-detail__thumb.active, .product-detail__thumb:hover { opacity: 1; border-color: var(--primary); box-shadow: 0 0 0 1px rgba(200,164,94,.25); }
+    .product-detail__thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+    .product-detail__badge { display: inline-block; padding: 6px 12px; border: 1px solid var(--border); font-size: .65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--primary); margin-bottom: 14px; }
+    .product-detail__title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.1; margin-bottom: 12px; }
+    .product-detail__rating { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: .85rem; margin-bottom: 20px; }
+    .product-detail__rating i { color: var(--primary); }
+    .product-detail__prices { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; flex-wrap: wrap; }
+    .product-detail__price { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--primary); }
+    .product-detail__price-old { font-size: 1rem; color: var(--text-muted); text-decoration: line-through; }
+    .product-detail__save { font-size: .75rem; letter-spacing: 1px; text-transform: uppercase; color: #7ddf9a; border: 1px solid rgba(125,223,154,.25); padding: 4px 8px; }
+
+    .product-detail__label { font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 10px; }
+    .product-detail__colors { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; padding: 12px; background: var(--bg-glass); border: 1px solid var(--border); }
+    .detail-color { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--border); background: transparent; color: var(--text); font-size: .78rem; transition: .2s; cursor: pointer; }
+    .detail-color__dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(255,255,255,.2); flex-shrink: 0; box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+    .detail-color.active { border-color: var(--primary); background: rgba(200,164,94,.08); box-shadow: 0 0 0 2px rgba(200,164,94,.18); }
+
+    .product-detail__qty-row { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .detail-qty { display: flex; align-items: center; border: 1px solid var(--border); }
+    .detail-qty button { width: 40px; height: 40px; background: transparent; color: var(--text); font-size: 1rem; }
+    .detail-qty span { min-width: 40px; text-align: center; font-weight: 600; }
+
+    .product-detail__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 20px; font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; transition: .25s; border: 1px solid transparent; cursor: pointer; }
+    .btn--cart { border-color: rgba(200,164,94,.45); color: var(--primary-light); background: transparent; }
+    .btn--cart:hover { background: rgba(200,164,94,.12); border-color: var(--primary); color: var(--primary); }
+    .btn--buy { background: var(--gradient-gold); color: #000; }
+    .btn--buy:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(200,164,94,.25); }
+    .btn--outline { border-color: var(--border); color: var(--text); background: transparent; grid-column: 1 / -1; }
+    .btn--outline:hover { border-color: var(--primary); color: var(--primary); }
+
+    .product-detail__features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+    .product-detail__feature { display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--border); font-size: .82rem; color: var(--text-secondary); }
+    .product-detail__feature i { color: var(--primary); font-size: 1rem; }
+    .product-detail__desc { color: var(--text-secondary); line-height: 1.85; margin-bottom: 16px; }
+    .product-detail__meta { font-size: .78rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+
+    .related { margin-top: 72px; padding-top: 48px; border-top: 1px solid var(--border); }
+    .related__title { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; margin-bottom: 24px; }
+    .related__title em { font-style: normal; background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .related__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .related-card { border: 1px solid var(--border); background: var(--bg-glass); transition: .25s; overflow: hidden; }
+    .related-card:hover { border-color: rgba(200,164,94,.35); transform: translateY(-3px); }
+    .related-card__img { aspect-ratio: 1; overflow: hidden; }
+    .related-card__img img { width: 100%; height: 100%; object-fit: cover; }
+    .related-card__body { padding: 14px; }
+    .related-card__name { font-size: .88rem; font-weight: 600; margin-bottom: 6px; }
+    .related-card__price { color: var(--primary); font-weight: 700; font-size: .85rem; }
+
+    .state-box { padding: 80px 20px; text-align: center; border: 1px solid var(--border); color: var(--text-secondary); }
+    .state-box h2 { font-family: 'Space Grotesk', sans-serif; margin-bottom: 12px; color: var(--text); }
+    .footer { padding: 48px 0 24px; border-top: 1px solid var(--border); margin-top: 40px; }
+    .footer__copy { color: var(--text-muted); font-size: .78rem; text-align: center; }
+
+    .float-whatsapp { position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px; background: #25D366; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; z-index: 999; box-shadow: 0 8px 28px rgba(37,211,102,.45); transition: .3s; }
+    .float-whatsapp:hover { transform: scale(1.08) translateY(-3px); box-shadow: 0 14px 36px rgba(37,211,102,.55); color: #fff; }
+    .float-whatsapp__pulse { position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(37,211,102,.5); animation: waPulse 2s ease-out infinite; }
+    @keyframes waPulse { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.45); opacity: 0; } }
+
+    @media (max-width: 960px) {
+      .product-detail { grid-template-columns: 1fr; gap: 32px; }
+      .product-detail__gallery { position: static; }
+      .related__grid { grid-template-columns: repeat(2, 1fr); }
+      .nav__links { display: none; }
+    }
+    @media (max-width: 560px) {
+      .product-detail__features { grid-template-columns: 1fr; }
+      .related__grid { grid-template-columns: 1fr; }
+      .product-detail__actions { flex-direction: column; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo">AASIF WATCH</a>
+      <ul class="nav__links">
+        <li><a href="index.html#home" class="nav__link">Home</a></li>
+        <li><a href="index.html#featured" class="nav__link">Featured</a></li>
+        <li><a href="index.html#products" class="nav__link">Products</a></li>
+        <li><a href="index.html#new" class="nav__link">New</a></li>
+      </ul>
+      <div class="nav__actions">
+        <button class="nav__action-btn" id="theme-btn" type="button"><i class='bx bx-moon'></i></button>
+        <button class="nav__action-btn" id="cart-open" type="button"><i class='bx bx-shopping-bag'></i></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart" id="cart">
+    <div class="cart__head" style="display:flex;justify-content:space-between;align-items:center;">
+      <h2 class="cart__heading">Shopping Cart</h2>
+      <button class="cart__close" id="cart-close" type="button"><i class='bx bx-x'></i></button>
+    </div>
+    <div class="cart__body" id="cartItems"></div>
+    <div class="cart__foot">
+      <div style="display:grid;gap:8px;margin-bottom:8px;">
+        <div style="display:flex;justify-content:space-between;"><span>Subtotal</span><span id="cartSubtotal">PKR 0</span></div>
+        <div style="display:flex;justify-content:space-between;"><span>Delivery</span><span id="cartDelivery">PKR 150</span></div>
+        <div style="display:flex;justify-content:space-between;font-weight:700;"><span>Total</span><span id="cartTotal">PKR 150</span></div>
+      </div>
+      <button class="cart__checkout-btn" id="checkoutBtn" type="button">Checkout Now</button>
+    </div>
+  </div>
+
+  <div class="cart-overlay" id="checkoutOverlay" style="z-index:10002;"></div>
+  <div class="cart" id="checkoutModal" style="z-index:10003;">
+    <div class="cart__head" style="display:flex;justify-content:space-between;align-items:center;">
+      <h2 class="cart__heading">Checkout</h2>
+      <button class="cart__close" id="checkoutClose" type="button"><i class='bx bx-x'></i></button>
+    </div>
+    <div class="cart__body">
+      <form id="checkoutForm" style="display:grid;gap:14px;">
+        <label style="display:grid;gap:6px;"><span style="font-size:.8rem;color:var(--text-secondary);">Full Name</span><input id="coName" required style="padding:14px;border:1px solid var(--border);background:transparent;color:var(--text);" /></label>
+        <label style="display:grid;gap:6px;"><span style="font-size:.8rem;color:var(--text-secondary);">Phone Number</span><input id="coPhone" required style="padding:14px;border:1px solid var(--border);background:transparent;color:var(--text);" /></label>
+        <label style="display:grid;gap:6px;"><span style="font-size:.8rem;color:var(--text-secondary);">Address</span><input id="coAddress" required style="padding:14px;border:1px solid var(--border);background:transparent;color:var(--text);" /></label>
+        <div style="border-top:1px solid var(--border);padding-top:14px;display:grid;gap:8px;">
+          <div style="display:flex;justify-content:space-between;"><span>Subtotal</span><span id="coSubtotal">PKR 0</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>Delivery</span><span id="coDelivery">PKR 150</span></div>
+          <div style="display:flex;justify-content:space-between;font-weight:700;"><span>Total</span><span id="coTotal">PKR 150</span></div>
+        </div>
+        <button class="cart__checkout-btn" type="submit" id="placeOrderBtn">Place Order</button>
+        <div id="checkoutMsg" style="min-height:18px;color:var(--text-secondary);font-size:.85rem;"></div>
+      </form>
+    </div>
+  </div>
+
+  <main class="product-page">
+    <div class="container">
+      <nav class="breadcrumb" id="breadcrumb">
+        <a href="index.html">Home</a><span class="breadcrumb__sep">/</span>
+        <a href="index.html#products" id="breadcrumbCategory">Products</a><span class="breadcrumb__sep">/</span>
+        <span id="breadcrumbName">Loading…</span>
+      </nav>
+      <div id="productRoot">
+        <div class="state-box">Loading product…</div>
+      </div>
+      <section class="related" id="relatedSection" hidden>
+        <h2 class="related__title">You May Also <em>Like</em></h2>
+        <div class="related__grid" id="relatedGrid"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__contact-item" style="text-align:center;margin-bottom:8px;color:var(--text-secondary);font-size:.85rem;">
+        <i class='bx bx-phone'></i> <a href="https://wa.me/923422244752" target="_blank" rel="noopener noreferrer">+923422244752</a>
+      </div>
+      <p class="footer__copy">© 2026 Aasif Watch. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/923422244752" class="float-whatsapp" id="floatWhatsApp" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <span class="float-whatsapp__pulse"></span>
+    <i class='bx bxl-whatsapp'></i>
+  </a>
+
+  <script>
+    const pkr = new Intl.NumberFormat('en-PK', { style: 'currency', currency: 'PKR', maximumFractionDigits: 0 });
+    window.__formatPKR__ = (v) => pkr.format(Number(v || 0));
+
+    const cart = document.getElementById('cart');
+    const overlay = document.getElementById('cart-overlay');
+    window.openCart = () => { cart.classList.add('show-cart'); overlay.classList.add('active'); };
+    const closeCart = () => { cart.classList.remove('show-cart'); overlay.classList.remove('active'); };
+    window.closeCart = closeCart;
+    document.getElementById('cart-open').addEventListener('click', window.openCart);
+    document.getElementById('cart-close').addEventListener('click', closeCart);
+    overlay.addEventListener('click', closeCart);
+
+    const themeBtn = document.getElementById('theme-btn');
+    themeBtn.addEventListener('click', () => {
+      const icon = themeBtn.querySelector('i');
+      if (!document.body.hasAttribute('data-theme')) {
+        document.body.setAttribute('data-theme', 'light');
+        icon.classList.replace('bx-moon', 'bx-sun');
+      } else {
+        document.body.removeAttribute('data-theme');
+        icon.classList.replace('bx-sun', 'bx-moon');
+      }
+    });
+  </script>
+
+  <script src="assets/js/supabaseConfig.js"></script>
+  <script type="module">
+    import { supabase } from "./assets/js/supabaseClient.js";
+    import {
+      formatMoney,
+      escapeHtml,
+      escapeAttr,
+      parseColors,
+      productUrl,
+      buildWhatsAppHref,
+      addToCart,
+      buyNow,
+      renderCart,
+      initCartInteractions,
+      initCheckout,
+    } from "./assets/js/storefront.js";
+
+    const ALLOWED_TABLES = new Set(["featured_timepieces", "premium_products"]);
+    const params = new URLSearchParams(window.location.search);
+    const table = params.get("table") || "";
+    const id = Number(params.get("id") || 0);
+
+    let currentProduct = null;
+    let selectedColor = null;
+    let qty = 1;
+
+    function productImages(product) {
+      const colors = parseColors(product.colors);
+      const images = [];
+      const seen = new Set();
+      for (const c of colors) {
+        const url = c.image_url || product.image_url;
+        if (url && !seen.has(url)) {
+          seen.add(url);
+          images.push({ url, label: c.name, hex: c.hex });
+        }
+      }
+      if (product.image_url && !seen.has(product.image_url)) {
+        images.unshift({ url: product.image_url, label: "Default", hex: "" });
+      }
+      if (!images.length && product.image_url) images.push({ url: product.image_url, label: "Default", hex: "" });
+      return images;
+    }
+
+    function discountPercent(actual, sale) {
+      const a = Number(actual || 0);
+      const s = Number(sale || 0);
+      if (!a || s >= a) return 0;
+      return Math.round(((a - s) / a) * 100);
+    }
+
+    function renderProduct(product) {
+      currentProduct = product;
+      const colors = parseColors(product.colors);
+      const images = productImages(product);
+      selectedColor = colors[0] || null;
+      qty = 1;
+
+      const isFeatured = table === "featured_timepieces";
+      const badge = isFeatured ? "Featured" : "Premium";
+      const discount = discountPercent(product.actual_price, product.my_price);
+      const mainImage = selectedColor?.image_url || images[0]?.url || product.image_url || "";
+
+      document.title = `${product.name || "Product"} | Aasif Watch`;
+      document.getElementById("breadcrumbName").textContent = product.name || "Product";
+      document.getElementById("breadcrumbCategory").textContent = isFeatured ? "Featured" : "Products";
+      document.getElementById("breadcrumbCategory").href = isFeatured ? "index.html#featured" : "index.html#products";
+
+      const thumbsHtml = images
+        .map(
+          (img, idx) => `
+        <button type="button" class="product-detail__thumb${idx === 0 ? " active" : ""}" data-thumb="${escapeAttr(img.url)}" aria-label="${escapeAttr(img.label)}">
+          <img src="${escapeAttr(img.url)}" alt="">
+        </button>`
+        )
+        .join("");
+
+      const colorsHtml = colors.length
+        ? colors
+            .map(
+              (c, idx) => `
+          <button type="button" class="detail-color${idx === 0 ? " active" : ""}"
+            data-color-name="${escapeAttr(c.name || "")}"
+            data-color-image="${escapeAttr(c.image_url || product.image_url || "")}"
+            data-color-hex="${escapeAttr(c.hex || "#888")}">
+            <span class="detail-color__dot" style="background:${escapeAttr(c.hex || "#888")}"></span>
+            ${escapeHtml(c.name || "")}
+          </button>`
+            )
+            .join("")
+        : `<span style="color:var(--text-secondary);font-size:.85rem;">Standard finish</span>`;
+
+      const root = document.getElementById("productRoot");
+      root.innerHTML = `
+        <article class="product-detail" id="productDetail" data-product-detail
+          data-source-table="${escapeAttr(table)}"
+          data-source-id="${product.id}"
+          data-name="${escapeAttr(product.name || "")}"
+          data-unit-price="${Number(product.my_price || 0)}"
+          data-actual-price="${Number(product.actual_price || 0)}">
+          <div class="product-detail__gallery">
+            <div class="product-detail__main">
+              <img id="detailMainImage" src="${escapeAttr(mainImage)}" alt="${escapeHtml(product.name || "")}">
+            </div>
+            ${images.length > 1 ? `<div class="product-detail__thumbs">${thumbsHtml}</div>` : ""}
+          </div>
+          <div class="product-detail__info">
+            <span class="product-detail__badge">${badge}</span>
+            <h1 class="product-detail__title">${escapeHtml(product.name || "")}</h1>
+            <div class="product-detail__rating"><i class='bx bxs-star'></i> 4.9 · Trusted by collectors</div>
+            <div class="product-detail__prices">
+              <span class="product-detail__price" id="detailPrice">${formatMoney(product.my_price)}</span>
+              ${Number(product.actual_price) > Number(product.my_price) ? `<span class="product-detail__price-old">${formatMoney(product.actual_price)}</span>` : ""}
+              ${discount ? `<span class="product-detail__save">Save ${discount}%</span>` : ""}
+            </div>
+            ${colors.length ? `<div class="product-detail__label">Select Color</div><div class="product-detail__colors" id="detailColors">${colorsHtml}</div>` : ""}
+            <div class="product-detail__label">Quantity</div>
+            <div class="product-detail__qty-row">
+              <div class="detail-qty">
+                <button type="button" id="qtyMinus" aria-label="Decrease quantity"><i class='bx bx-minus'></i></button>
+                <span id="qtyValue">1</span>
+                <button type="button" id="qtyPlus" aria-label="Increase quantity"><i class='bx bx-plus'></i></button>
+              </div>
+              <span class="product-detail__meta">Delivery: PKR 150 nationwide</span>
+            </div>
+            <div class="product-detail__actions">
+              <button class="btn btn--cart" id="detailAddToCart" type="button"><i class='bx bx-cart-add'></i> Add to Cart</button>
+              <button class="btn btn--buy" id="detailBuyNow" type="button"><i class='bx bx-bolt'></i> Buy Now</button>
+              <a class="btn btn--outline" href="index.html#products"><i class='bx bx-arrow-back'></i> Back to Shop</a>
+            </div>
+            <div class="product-detail__features">
+              <div class="product-detail__feature"><i class='bx bx-shield-alt-2'></i> 5-Year Warranty</div>
+              <div class="product-detail__feature"><i class='bx bx-check-shield'></i> Authentic Craftsmanship</div>
+              <div class="product-detail__feature"><i class='bx bx-package'></i> Secure Packaging</div>
+              <div class="product-detail__feature"><i class='bx bx-support'></i> WhatsApp Support</div>
+            </div>
+            <p class="product-detail__desc">
+              The ${escapeHtml(product.name || "timepiece")} reflects Aasif Watch standards — refined finishing,
+              balanced proportions, and reliable performance for everyday wear or formal occasions.
+              Each piece is inspected before dispatch from Karachi.
+            </p>
+            <p class="product-detail__meta">SKU: AW-${product.id} · ${isFeatured ? "Featured Collection" : "Premium Collection"}</p>
+          </div>
+        </article>
+      `;
+
+      bindDetailEvents();
+      updateWhatsAppLink();
+    }
+
+    function bindDetailEvents() {
+      document.querySelectorAll(".product-detail__thumb").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".product-detail__thumb").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          document.getElementById("detailMainImage").src = btn.getAttribute("data-thumb");
+        });
+      });
+
+      document.querySelectorAll(".detail-color").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".detail-color").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          selectedColor = {
+            name: btn.getAttribute("data-color-name") || "",
+            image_url: btn.getAttribute("data-color-image") || "",
+            hex: btn.getAttribute("data-color-hex") || "",
+          };
+          const img = selectedColor.image_url;
+          if (img) {
+            document.getElementById("detailMainImage").src = img;
+            document.querySelectorAll(".product-detail__thumb").forEach((t) => {
+              t.classList.toggle("active", t.getAttribute("data-thumb") === img);
+            });
+          }
+          updateWhatsAppLink();
+        });
+      });
+
+      document.getElementById("qtyMinus")?.addEventListener("click", () => {
+        qty = Math.max(1, qty - 1);
+        document.getElementById("qtyValue").textContent = String(qty);
+        updateWhatsAppLink();
+      });
+      document.getElementById("qtyPlus")?.addEventListener("click", () => {
+        qty = Math.min(10, qty + 1);
+        document.getElementById("qtyValue").textContent = String(qty);
+        updateWhatsAppLink();
+      });
+
+      document.getElementById("detailAddToCart")?.addEventListener("click", () => {
+        if (!currentProduct) return;
+        addToCart(buildDetailItem());
+      });
+
+      document.getElementById("detailBuyNow")?.addEventListener("click", () => {
+        if (!currentProduct) return;
+        buyNow(buildDetailItem());
+      });
+    }
+
+    function buildDetailItem() {
+      const image = selectedColor?.image_url || currentProduct.image_url || "";
+      return {
+        source_table: table,
+        source_id: currentProduct.id,
+        name: currentProduct.name || "",
+        image_url: image,
+        color_name: selectedColor?.name || "",
+        unit_price: Number(currentProduct.my_price || 0),
+        actual_price: Number(currentProduct.actual_price || 0),
+        qty,
+      };
+    }
+
+    function updateWhatsAppLink() {
+      const link = document.getElementById("floatWhatsApp");
+      if (!link || !currentProduct) return;
+      link.href = buildWhatsAppHref(
+        currentProduct.name || "",
+        currentProduct.my_price,
+        selectedColor?.name || "",
+        qty
+      );
+    }
+
+    function renderRelated(rows) {
+      const section = document.getElementById("relatedSection");
+      const grid = document.getElementById("relatedGrid");
+      const list = (rows || []).filter((r) => r.id !== id).slice(0, 4);
+      if (!list.length) {
+        section.hidden = true;
+        return;
+      }
+      section.hidden = false;
+      grid.innerHTML = list
+        .map((r) => {
+          const img = parseColors(r.colors)[0]?.image_url || r.image_url || "";
+          return `
+        <a class="related-card" href="${productUrl(table, r.id)}">
+          <div class="related-card__img"><img src="${escapeAttr(img)}" alt="${escapeHtml(r.name || "")}"></div>
+          <div class="related-card__body">
+            <div class="related-card__name">${escapeHtml(r.name || "")}</div>
+            <div class="related-card__price">${formatMoney(r.my_price)}</div>
+          </div>
+        </a>`;
+        })
+        .join("");
+    }
+
+    function renderError(message) {
+      document.getElementById("productRoot").innerHTML = `
+        <div class="state-box">
+          <h2>Product Not Found</h2>
+          <p>${escapeHtml(message)}</p>
+          <a class="btn btn--outline" href="index.html#products" style="margin-top:20px;display:inline-flex;">Back to Shop</a>
+        </div>`;
+    }
+
+    initCartInteractions();
+    initCheckout(supabase);
+    renderCart();
+
+    if (!ALLOWED_TABLES.has(table) || !id) {
+      renderError("Invalid product link. Please choose a watch from the shop.");
+    } else {
+      try {
+        const { data: product, error } = await supabase
+          .from(table)
+          .select("id,name,image_url,actual_price,my_price,colors,created_at")
+          .eq("id", id)
+          .maybeSingle();
+        if (error) throw error;
+        if (!product) {
+          renderError("This product may have been removed or the link is incorrect.");
+        } else {
+          renderProduct(product);
+          const { data: related } = await supabase
+            .from(table)
+            .select("id,name,image_url,my_price,colors")
+            .neq("id", id)
+            .order("created_at", { ascending: false })
+            .limit(5);
+          renderRelated(related || []);
+        }
+      } catch (e) {
+        console.error(e);
+        renderError(e.message || "Could not load product.");
+      }
+    }
+  </script>
+</body>
+</html>
