@@ -111,7 +111,7 @@ async function fetchOrders() {
 async function fetchOrderItems(orderId) {
   const { data, error } = await supabase
     .from("order_items")
-    .select("id,order_id,name,image_url,unit_price,qty,line_total,source_table,source_id")
+    .select("id,order_id,name,image_url,unit_price,qty,line_total,source_table,source_id,color_name")
     .eq("order_id", orderId)
     .order("id", { ascending: true });
   if (error) throw error;
@@ -126,7 +126,7 @@ async function markOrderComplete(orderId) {
 async function fetchFeatured() {
   const { data, error } = await supabase
     .from("featured_timepieces")
-    .select("id,name,image_url,actual_price,my_price,created_at")
+    .select("id,name,image_url,actual_price,my_price,colors,created_at")
     .order("created_at", { ascending: false });
   if (error) throw error;
   return data || [];
@@ -135,7 +135,7 @@ async function fetchFeatured() {
 async function fetchProducts() {
   const { data, error } = await supabase
     .from("premium_products")
-    .select("id,name,image_url,actual_price,my_price,created_at")
+    .select("id,name,image_url,actual_price,my_price,colors,created_at")
     .order("created_at", { ascending: false });
   if (error) throw error;
   return data || [];
@@ -165,6 +165,7 @@ function renderList(container, rows, table) {
         <div class="meta">
           <div class="name">${escapeHtml(r.name || "")}</div>
           <div class="prices">Actual: ${moneyPKR(r.actual_price)} · Your: ${moneyPKR(r.my_price)}</div>
+          ${colorDotsHtml(r.colors)}
         </div>
       </div>
       <div class="item__actions">
@@ -204,6 +205,72 @@ function escapeHtml(s) {
 
 function escapeAttr(s) {
   return String(s).replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+}
+
+function parseColors(raw) {
+  if (!raw) return [];
+  if (Array.isArray(raw)) return raw.filter((c) => c && c.name);
+  return [];
+}
+
+function colorDotsHtml(colors) {
+  const list = parseColors(colors);
+  if (!list.length) return "";
+  const dots = list
+    .slice(0, 6)
+    .map((c) => `<span class="colorDot" style="background:${escapeAttr(c.hex || "#888")}" title="${escapeAttr(c.name || "")}"></span>`)
+    .join("");
+  return `<div class="colorCount">${dots}<span style="color:var(--muted);font-size:11px;">${list.length} color${list.length > 1 ? "s" : ""}</span></div>`;
+}
+
+function createColorRow(color = {}) {
+  const row = document.createElement("div");
+  row.className = "colorRow";
+  row.innerHTML = `
+    <label class="field">
+      <span>Color name</span>
+      <input type="text" class="colorName" placeholder="e.g. Gold" value="${escapeAttr(color.name || "")}" required />
+    </label>
+    <label class="field">
+      <span>Hex</span>
+      <input type="color" class="colorHex" value="${escapeAttr(color.hex || "#c8a45e")}" />
+    </label>
+    <label class="field">
+      <span>Image (optional)</span>
+      <input type="file" class="colorFile" accept="image/*" />
+      <input type="hidden" class="colorExistingImage" value="${escapeAttr(color.image_url || "")}" />
+    </label>
+    <button class="iconBtn colorRow__remove" type="button" title="Remove color"><i class='bx bx-trash'></i></button>
+  `;
+  row.querySelector(".colorRow__remove").addEventListener("click", () => row.remove());
+  return row;
+}
+
+function renderColorRows(colors) {
+  const container = $("colorRows");
+  if (!container) return;
+  container.innerHTML = "";
+  const list = parseColors(colors);
+  if (!list.length) {
+    container.appendChild(createColorRow());
+    return;
+  }
+  for (const c of list) container.appendChild(createColorRow(c));
+}
+
+async function collectColors(mainImageUrl, folder) {
+  const rows = [...document.querySelectorAll("#colorRows .colorRow")];
+  const colors = [];
+  for (const row of rows) {
+    const name = row.querySelector(".colorName")?.value.trim();
+    const hex = row.querySelector(".colorHex")?.value || "#c8a45e";
+    const file = row.querySelector(".colorFile")?.files?.[0] || null;
+    const existingImage = row.querySelector(".colorExistingImage")?.value || "";
+    if (!name) continue;
+    const image_url = file ? await uploadImage(file, folder) : existingImage || mainImageUrl;
+    colors.push({ name, hex, image_url });
+  }
+  return colors;
 }
 
 async function refreshLists() {
@@ -284,7 +351,7 @@ async function openOrderModal(order) {
         <div class="item__left">
           <img class="thumb" src="${escapeAttr(it.image_url || "")}" alt="">
           <div class="meta">
-            <div class="name">${escapeHtml(it.name || "")}</div>
+            <div class="name">${escapeHtml(it.name || "")}${it.color_name ? ` · <span style="color:var(--gold2)">${escapeHtml(it.color_name)}</span>` : ""}</div>
             <div class="prices">${moneyPKR(it.unit_price)} × ${it.qty} = ${moneyPKR(it.line_total)}</div>
           </div>
         </div>
@@ -435,6 +502,7 @@ function openItemModal({ table, mode, row }) {
   $("itemActual").value = mode === "edit" ? String(row.actual_price ?? "") : "";
   $("itemMy").value = mode === "edit" ? String(row.my_price ?? "") : "";
   $("itemFile").value = "";
+  renderColorRows(mode === "edit" ? row.colors : []);
   $("itemModalTitle").textContent =
     mode === "edit"
       ? `Edit ${table === "featured_timepieces" ? "Featured" : "Product"}`
@@ -443,6 +511,10 @@ function openItemModal({ table, mode, row }) {
   setMsg($("itemModalMsg"), "");
   openModal("itemModal");
 }
+
+$("addColorBtn")?.addEventListener("click", () => {
+  $("colorRows")?.appendChild(createColorRow());
+});
 
 $("addFeaturedBtn").addEventListener("click", () =>
   (async () => {
@@ -522,13 +594,15 @@ $("itemForm").addEventListener("submit", async (e) => {
     const folder = table === "featured_timepieces" ? "featured" : "products";
 
     const imageUrl = file ? await uploadImage(file, folder) : existingImage;
-    if (!imageUrl) throw new Error("Please upload an image.");
+    if (!imageUrl) throw new Error("Please upload a main image.");
 
+    const colors = await collectColors(imageUrl, folder);
     const payload = {
       name: $("itemName").value.trim(),
-      image_url: imageUrl,
+      image_url: colors.length ? colors[0].image_url : imageUrl,
       actual_price: Number($("itemActual").value),
       my_price: Number($("itemMy").value),
+      colors,
     };
 
     if (isEdit) await updateRow(table, Number(idRaw), payload);

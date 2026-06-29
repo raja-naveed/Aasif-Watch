@@ -206,6 +206,8 @@ body{
 .modal__panel{
   position:relative;
   width:min(560px, 92vw);
+  max-height:85vh;
+  overflow-y:auto;
   margin:8vh auto 0;
   background:rgba(10,10,14,.92);
   border:1px solid rgba(255,255,255,.12);
@@ -227,4 +229,31 @@ body{
 @media (max-width: 560px){
   .row{grid-template-columns:1fr}
   .contentTop{flex-direction:column;align-items:flex-start}
+}
+
+/* Color rows in product modal */
+.btn--small{padding:8px 10px;font-size:11px}
+.colorsSection{
+  display:flex;flex-direction:column;gap:8px;
+  padding:12px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.15);
+}
+.colorsSection__head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.colorsSection__head > span{color:var(--muted);font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:700}
+.colorsSection__hint{color:var(--muted2);font-size:11px;line-height:1.5;margin:0}
+.colorRows{display:flex;flex-direction:column;gap:10px}
+.colorRow{
+  display:grid;grid-template-columns:1fr 80px 1fr auto;gap:8px;align-items:end;
+  padding:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);
+}
+.colorRow input[type="color"]{
+  width:100%;height:42px;padding:2px;border:1px solid rgba(255,255,255,.14);
+  background:transparent;cursor:pointer;
+}
+.colorRow input[type="file"]{font-size:11px;color:var(--muted)}
+.colorRow__remove{align-self:center}
+.colorCount{display:inline-flex;align-items:center;gap:4px;margin-top:4px}
+.colorDot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(255,255,255,.25)}
+@media (max-width: 560px){
+  .colorRow{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
+  .colorRow__remove{grid-column:2;justify-self:end}
 }

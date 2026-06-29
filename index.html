@@ -991,6 +991,102 @@
             color: #000;
         }
 
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-action-btn {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .featured__item-cta .card-actions .featured__item-btn,
+        .new__item-info .card-actions .new__item-btn {
+            width: auto;
+        }
+
+        .card-whatsapp-btn {
+            flex: 1;
+            min-width: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 13px 10px;
+            background: transparent;
+            border: 1px solid rgba(37, 211, 102, 0.45);
+            color: #25D366;
+            font-size: 0.68rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-whatsapp-btn i {
+            font-size: 1.05rem;
+        }
+
+        .card-whatsapp-btn:hover {
+            background: #25D366;
+            border-color: #25D366;
+            color: #fff;
+        }
+
+        .card-whatsapp-btn--icon {
+            flex: 0 0 auto;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            border-radius: 50%;
+        }
+
+        .card-whatsapp-btn--icon span {
+            display: none;
+        }
+
+        .product-card__quick-btn--whatsapp {
+            color: #25D366;
+            border-color: rgba(37, 211, 102, 0.35);
+        }
+
+        .product-card__quick-btn--whatsapp:hover {
+            background: #25D366;
+            border-color: #25D366;
+            color: #fff;
+        }
+
+        .product-card__quick .card-whatsapp-btn {
+            flex: 1;
+            width: auto;
+            height: auto;
+            border-radius: 0;
+            padding: 10px;
+            letter-spacing: 0;
+            font-size: 1rem;
+            background: rgba(8, 8, 12, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #25D366;
+        }
+
+        .product-card__quick .card-whatsapp-btn:hover {
+            background: #25D366;
+            border-color: #25D366;
+            color: #fff;
+        }
+
+        .card-actions--product {
+            margin-top: 14px;
+        }
+
+        .card-actions--product .featured__item-btn {
+            width: auto;
+        }
+
         /* ==================== STORY / ABOUT ==================== */
         .story__grid {
             display: grid;
@@ -1197,6 +1293,48 @@
         }
 
         .product-card__rating i { color: var(--primary); font-size: 0.7rem; }
+
+        /* ==================== PRODUCT COLORS ==================== */
+        .product-colors {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            align-items: center;
+        }
+
+        .color-swatch {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            padding: 0;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+
+        .color-swatch.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(200, 164, 94, 0.35);
+            transform: scale(1.12);
+        }
+
+        .color-swatch-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .cart__card-color {
+            font-size: 0.75rem;
+            color: var(--primary);
+            margin-top: 2px;
+        }
 
         /* ==================== TESTIMONIAL ==================== */
         .testimonial__grid {
@@ -1989,7 +2127,7 @@
             <div class="container">
                 <div class="story__grid reveal-scale">
                     <div class="story__visual">
-                        <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&h=700&fit=crop" alt="Aasif Watch — Our Heritage">
+                        <img src="/assets/img/bgnew.jpg" alt="Aasif Watch — Our Heritage">
                         <div class="story__visual-overlay"></div>
                     </div>
                     <div class="story__content">
@@ -2040,7 +2178,7 @@
             <div class="container">
                 <div class="testimonial__grid reveal-scale">
                     <div class="testimonial__visual">
-                        <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=600&h=700&fit=crop" alt="">
+                        <img src="/assets/img/bgnew.jpg" alt="">
                     </div>
 
                     <div class="testimonial__content" id="testimonial-panel">
@@ -2146,7 +2284,7 @@
                         </div>
                     </div>
                     <div class="cta__visual">
-                        <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&h=600&fit=crop" alt="Aasif Watch — Craftsmanship">
+                        <img src="/assets/img/bgnew.jpg" alt="Aasif Watch — Craftsmanship">
                         <div class="cta__visual-overlay"></div>
                     </div>
                 </div>
@@ -2195,9 +2333,9 @@
 
                 <div>
                     <h3 class="footer__col-title">Contact</h3>
-                    <div class="footer__contact-item"><i class='bx bx-map'></i> Geneva, Switzerland</div>
-                    <div class="footer__contact-item"><i class='bx bx-phone'></i> +41 22 345 6789</div>
-                    <div class="footer__contact-item"><i class='bx bx-envelope'></i> hello@aasifwatch.com</div>
+                    <div class="footer__contact-item"><i class='bx bx-map'></i> Orangi Town , Karachi</div>
+                    <div class="footer__contact-item"><i class='bx bx-phone'></i> <a href="https://wa.me/923422244752" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">+923422244752</a></div>
+                    <div class="footer__contact-item"><i class='bx bx-envelope'></i> amazongukltd4@gmail.com</div>
                 </div>
             </div>
 
@@ -2372,6 +2510,7 @@
     const overlay = document.getElementById('cart-overlay');
     const openCart = () => { cart.classList.add('show-cart'); overlay.classList.add('active'); };
     const closeCart = () => { cart.classList.remove('show-cart'); overlay.classList.remove('active'); };
+    window.openCart = openCart;
 
     document.getElementById('cart-open').addEventListener('click', openCart);
     document.getElementById('cart-close').addEventListener('click', closeCart);
@@ -2447,7 +2586,7 @@
     document.getElementById('t-prev').addEventListener('click', () => { tIdx = (tIdx - 1 + testimonials.length) % testimonials.length; setTestimonial(tIdx); });
 
     // ===== RIPPLE =====
-    document.querySelectorAll('.btn,.featured__item-btn,.new__item-btn,.product-card__quick-btn,.cart__checkout-btn').forEach(b => {
+    document.querySelectorAll('.btn,.featured__item-btn,.new__item-btn,.product-card__quick-btn,.cart__checkout-btn,.card-whatsapp-btn').forEach(b => {
         b.addEventListener('click', function(e) {
             const r = this.getBoundingClientRect();
             const s = Math.max(r.width, r.height);
@@ -2479,119 +2618,6 @@
       badge.textContent = "Supabase: checking…";
       document.body.appendChild(badge);
 
-      async function renderFeatured(rows) {
-        const grid = document.getElementById("featuredGrid");
-        if (!grid) return;
-        grid.innerHTML = "";
-        const limited = (rows || []).slice(0, 3);
-        for (let i = 0; i < limited.length; i++) {
-          const r = limited[i];
-          const card = document.createElement("article");
-          // Mark as active immediately because these nodes are created after the reveal observer runs.
-          card.className = "featured__item reveal active";
-          card.style.transitionDelay = `${0.1 + i * 0.1}s`;
-          card.innerHTML = `
-            <div class="featured__item-visual">
-              <span class="featured__item-tag">Sale</span>
-              <img src="${r.image_url || ""}" alt="${escapeHtml(r.name || "")}">
-              <div class="featured__item-overlay">
-                <button class="btn btn--primary btn--small btn--full">Quick View</button>
-              </div>
-            </div>
-            <div class="featured__item-info">
-              <h3 class="featured__item-name">${escapeHtml(r.name || "")}</h3>
-              <span class="featured__item-price">${formatMoney(r.my_price)}</span>
-            </div>
-            <div class="featured__item-cta">
-              <button class="featured__item-btn" data-add-to-cart="1"
-                data-source-table="featured_timepieces"
-                data-source-id="${r.id}"
-                data-name="${escapeAttr(r.name || "")}"
-                data-image="${escapeAttr(r.image_url || "")}"
-                data-unit-price="${Number(r.my_price || 0)}">Add to Cart</button>
-            </div>
-          `;
-          grid.appendChild(card);
-        }
-      }
-
-      async function renderProducts(rows) {
-        const grid = document.getElementById("productsGrid");
-        if (!grid) return;
-        grid.innerHTML = "";
-        for (let i = 0; i < rows.length; i++) {
-          const r = rows[i];
-          const card = document.createElement("article");
-          // Mark as active immediately because these nodes are created after the reveal observer runs.
-          card.className = "product-card reveal active";
-          card.style.transitionDelay = `${0.05 + i * 0.05}s`;
-          card.innerHTML = `
-            <div class="product-card__visual">
-              <img src="${r.image_url || ""}" alt="${escapeHtml(r.name || "")}">
-              <div class="product-card__quick">
-                <button class="product-card__quick-btn"><i class='bx bx-heart'></i></button>
-                <button class="product-card__quick-btn" data-add-to-cart="1"
-                  data-source-table="premium_products"
-                  data-source-id="${r.id}"
-                  data-name="${escapeAttr(r.name || "")}"
-                  data-image="${escapeAttr(r.image_url || "")}"
-                  data-unit-price="${Number(r.my_price || 0)}"
-                  data-actual-price="${Number(r.actual_price || 0)}"><i class='bx bx-shopping-bag'></i></button>
-                <button class="product-card__quick-btn"><i class='bx bx-expand'></i></button>
-              </div>
-            </div>
-            <div class="product-card__body">
-              <h3 class="product-card__name">${escapeHtml(r.name || "")}</h3>
-              <div class="product-card__bottom">
-                <span class="product-card__price">${formatMoney(r.my_price)}</span>
-                <span class="product-card__rating"><i class='bx bxs-star'></i> 4.9</span>
-              </div>
-              <div class="product-card__bottom" style="margin-top:10px;gap:12px;justify-content:flex-start;">
-                <span style="color:var(--text-muted);font-size:0.8rem;text-decoration:line-through;">
-                  ${formatMoney(r.actual_price)}
-                </span>
-                <span style="color:var(--primary);font-weight:700;">
-                  ${formatMoney(r.my_price)}
-                </span>
-              </div>
-            </div>
-          `;
-          grid.appendChild(card);
-        }
-      }
-
-      async function renderNewArrivals(rows) {
-        const grid = document.getElementById("newGrid");
-        if (!grid) return;
-        grid.innerHTML = "";
-        const all = rows || [];
-        for (let i = 0; i < all.length; i++) {
-          const r = all[i];
-          const card = document.createElement("article");
-          // Mark as active immediately because these nodes are created after the reveal observer runs.
-          card.className = "new__item reveal active";
-          card.style.transitionDelay = `${0.1 + i * 0.1}s`;
-          card.innerHTML = `
-            <div class="new__item-visual">
-              <span class="new__item-badge">New</span>
-              <img src="${r.image_url || ""}" alt="${escapeHtml(r.name || "")}">
-            </div>
-            <div class="new__item-info">
-              <h3 class="new__item-name">${escapeHtml(r.name || "")}</h3>
-              <span class="new__item-price">${formatMoney(r.my_price)}</span>
-              <button class="new__item-btn" data-add-to-cart="1"
-                data-source-table="premium_products"
-                data-source-id="${r.id}"
-                data-name="${escapeAttr(r.name || "")}"
-                data-image="${escapeAttr(r.image_url || "")}"
-                data-unit-price="${Number(r.my_price || 0)}"
-                data-actual-price="${Number(r.actual_price || 0)}">Add to Cart</button>
-            </div>
-          `;
-          grid.appendChild(card);
-        }
-      }
-
       function formatMoney(v) {
         return (window.__formatPKR__ ? window.__formatPKR__(v) : `PKR ${Number(v || 0).toLocaleString("en-PK")}`);
       }
@@ -2607,6 +2633,236 @@
         return String(s).replaceAll('"', "&quot;").replaceAll("'", "&#039;");
       }
 
+      function parseColors(raw) {
+        if (!raw) return [];
+        if (Array.isArray(raw)) return raw.filter((c) => c && c.name);
+        return [];
+      }
+
+      function buildColorSwatchesHtml(colors, fallbackImage) {
+        const list = parseColors(colors);
+        if (!list.length) return "";
+        const swatches = list
+          .map(
+            (c, idx) => `
+          <button type="button" class="color-swatch${idx === 0 ? " active" : ""}"
+            data-color-swatch="1"
+            data-color-name="${escapeAttr(c.name || "")}"
+            data-color-hex="${escapeAttr(c.hex || "#888")}"
+            data-color-image="${escapeAttr(c.image_url || fallbackImage || "")}"
+            style="background:${escapeAttr(c.hex || "#888")}"
+            title="${escapeAttr(c.name || "")}"
+            aria-label="${escapeAttr(c.name || "Color")}"></button>
+        `
+          )
+          .join("");
+        return `<div class="product-colors">${swatches}<span class="color-swatch-label">${escapeHtml(list[0].name || "")}</span></div>`;
+      }
+
+      function applyColorToCard(card, swatch) {
+        if (!card || !swatch) return;
+        card.querySelectorAll(".color-swatch").forEach((s) => s.classList.remove("active"));
+        swatch.classList.add("active");
+        const imgUrl = swatch.getAttribute("data-color-image") || "";
+        const colorName = swatch.getAttribute("data-color-name") || "";
+        const img = card.querySelector(".featured__item-visual img, .product-card__visual img, .new__item-visual img");
+        if (img && imgUrl) img.src = imgUrl;
+        const label = card.querySelector(".color-swatch-label");
+        if (label) label.textContent = colorName;
+        card.querySelectorAll("[data-add-to-cart]").forEach((btn) => {
+          if (imgUrl) btn.setAttribute("data-image", imgUrl);
+          btn.setAttribute("data-color-name", colorName);
+        });
+        updateWhatsAppLinksOnCard(card);
+      }
+
+      function getWhatsAppNumber() {
+        const items = document.querySelectorAll(".footer__contact-item");
+        for (const item of items) {
+          const m = item.textContent.match(/\+?\d[\d\s-]{8,}/);
+          if (m) return m[0].replace(/\D/g, "");
+        }
+        return "923422244752";
+      }
+
+      function buildWhatsAppHref(name, price, colorName) {
+        let msg = `Hi, I'm interested in ${name}`;
+        if (colorName) msg += ` (${colorName} color)`;
+        msg += ` - Price: ${formatMoney(price)}. Please share more details.`;
+        return `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(msg)}`;
+      }
+
+      function whatsAppButtonHtml(name, price, colorName, extraClass = "", iconOnly = false) {
+        const href = buildWhatsAppHref(name, price, colorName);
+        return `<a class="card-whatsapp-btn${iconOnly ? " card-whatsapp-btn--icon" : ""} ${extraClass}" href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer"
+          data-whatsapp-link="1"
+          data-product-name="${escapeAttr(name || "")}"
+          data-product-price="${Number(price || 0)}"
+          data-color-name="${escapeAttr(colorName || "")}"
+          aria-label="Order ${escapeAttr(name || "watch")} on WhatsApp">
+          <i class='bx bxl-whatsapp'></i>${iconOnly ? "" : "<span>WhatsApp</span>"}
+        </a>`;
+      }
+
+      function updateWhatsAppLinksOnCard(card) {
+        if (!card) return;
+        const activeColor = card.querySelector(".color-swatch.active");
+        const colorName = activeColor?.getAttribute("data-color-name") || "";
+        card.querySelectorAll("[data-whatsapp-link]").forEach((link) => {
+          const name = link.getAttribute("data-product-name") || "";
+          const price = link.getAttribute("data-product-price") || "0";
+          const c = colorName || link.getAttribute("data-color-name") || "";
+          link.href = buildWhatsAppHref(name, price, c);
+          if (colorName) link.setAttribute("data-color-name", colorName);
+        });
+      }
+
+      async function renderFeatured(rows) {
+        const grid = document.getElementById("featuredGrid");
+        if (!grid) return;
+        grid.innerHTML = "";
+        const limited = (rows || []).slice(0, 3);
+        for (let i = 0; i < limited.length; i++) {
+          const r = limited[i];
+          const colors = parseColors(r.colors);
+          const defaultImage = colors[0]?.image_url || r.image_url || "";
+          const defaultColorName = colors[0]?.name || "";
+          const card = document.createElement("article");
+          card.className = "featured__item reveal active";
+          card.setAttribute("data-product-card", "1");
+          card.style.transitionDelay = `${0.1 + i * 0.1}s`;
+          card.innerHTML = `
+            <div class="featured__item-visual">
+              <span class="featured__item-tag">Sale</span>
+              <img src="${escapeAttr(defaultImage)}" alt="${escapeHtml(r.name || "")}">
+              <div class="featured__item-overlay">
+                <button class="btn btn--primary btn--small btn--full">Quick View</button>
+              </div>
+            </div>
+            <div class="featured__item-info">
+              <h3 class="featured__item-name">${escapeHtml(r.name || "")}</h3>
+              <span class="featured__item-price">${formatMoney(r.my_price)}</span>
+              ${buildColorSwatchesHtml(r.colors, r.image_url)}
+            </div>
+            <div class="featured__item-cta">
+              <div class="card-actions">
+                <button class="featured__item-btn card-action-btn" data-add-to-cart="1"
+                  data-source-table="featured_timepieces"
+                  data-source-id="${r.id}"
+                  data-name="${escapeAttr(r.name || "")}"
+                  data-image="${escapeAttr(defaultImage)}"
+                  data-color-name="${escapeAttr(defaultColorName)}"
+                  data-unit-price="${Number(r.my_price || 0)}">Add to Cart</button>
+                ${whatsAppButtonHtml(r.name, r.my_price, defaultColorName, "card-action-btn")}
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        }
+      }
+
+      async function renderProducts(rows) {
+        const grid = document.getElementById("productsGrid");
+        if (!grid) return;
+        grid.innerHTML = "";
+        for (let i = 0; i < rows.length; i++) {
+          const r = rows[i];
+          const colors = parseColors(r.colors);
+          const defaultImage = colors[0]?.image_url || r.image_url || "";
+          const defaultColorName = colors[0]?.name || "";
+          const card = document.createElement("article");
+          card.className = "product-card reveal active";
+          card.setAttribute("data-product-card", "1");
+          card.style.transitionDelay = `${0.05 + i * 0.05}s`;
+          card.innerHTML = `
+            <div class="product-card__visual">
+              <img src="${escapeAttr(defaultImage)}" alt="${escapeHtml(r.name || "")}">
+              <div class="product-card__quick">
+                <button class="product-card__quick-btn"><i class='bx bx-heart'></i></button>
+                <button class="product-card__quick-btn" data-add-to-cart="1"
+                  data-source-table="premium_products"
+                  data-source-id="${r.id}"
+                  data-name="${escapeAttr(r.name || "")}"
+                  data-image="${escapeAttr(defaultImage)}"
+                  data-color-name="${escapeAttr(defaultColorName)}"
+                  data-unit-price="${Number(r.my_price || 0)}"
+                  data-actual-price="${Number(r.actual_price || 0)}"><i class='bx bx-shopping-bag'></i></button>
+                ${whatsAppButtonHtml(r.name, r.my_price, defaultColorName, "product-card__quick-btn product-card__quick-btn--whatsapp", true)}
+                <button class="product-card__quick-btn"><i class='bx bx-expand'></i></button>
+              </div>
+            </div>
+            <div class="product-card__body">
+              <h3 class="product-card__name">${escapeHtml(r.name || "")}</h3>
+              ${buildColorSwatchesHtml(r.colors, r.image_url)}
+              <div class="product-card__bottom">
+                <span class="product-card__price">${formatMoney(r.my_price)}</span>
+                <span class="product-card__rating"><i class='bx bxs-star'></i> 4.9</span>
+              </div>
+              <div class="product-card__bottom" style="margin-top:10px;gap:12px;justify-content:flex-start;">
+                <span style="color:var(--text-muted);font-size:0.8rem;text-decoration:line-through;">
+                  ${formatMoney(r.actual_price)}
+                </span>
+                <span style="color:var(--primary);font-weight:700;">
+                  ${formatMoney(r.my_price)}
+                </span>
+              </div>
+              <div class="card-actions card-actions--product">
+                <button class="featured__item-btn card-action-btn" data-add-to-cart="1"
+                  data-source-table="premium_products"
+                  data-source-id="${r.id}"
+                  data-name="${escapeAttr(r.name || "")}"
+                  data-image="${escapeAttr(defaultImage)}"
+                  data-color-name="${escapeAttr(defaultColorName)}"
+                  data-unit-price="${Number(r.my_price || 0)}"
+                  data-actual-price="${Number(r.actual_price || 0)}">Add to Cart</button>
+                ${whatsAppButtonHtml(r.name, r.my_price, defaultColorName, "card-action-btn")}
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        }
+      }
+
+      async function renderNewArrivals(rows) {
+        const grid = document.getElementById("newGrid");
+        if (!grid) return;
+        grid.innerHTML = "";
+        const all = rows || [];
+        for (let i = 0; i < all.length; i++) {
+          const r = all[i];
+          const colors = parseColors(r.colors);
+          const defaultImage = colors[0]?.image_url || r.image_url || "";
+          const defaultColorName = colors[0]?.name || "";
+          const card = document.createElement("article");
+          card.className = "new__item reveal active";
+          card.setAttribute("data-product-card", "1");
+          card.style.transitionDelay = `${0.1 + i * 0.1}s`;
+          card.innerHTML = `
+            <div class="new__item-visual">
+              <span class="new__item-badge">New</span>
+              <img src="${escapeAttr(defaultImage)}" alt="${escapeHtml(r.name || "")}">
+            </div>
+            <div class="new__item-info">
+              <h3 class="new__item-name">${escapeHtml(r.name || "")}</h3>
+              <span class="new__item-price">${formatMoney(r.my_price)}</span>
+              ${buildColorSwatchesHtml(r.colors, r.image_url)}
+              <div class="card-actions">
+                <button class="new__item-btn card-action-btn" data-add-to-cart="1"
+                  data-source-table="premium_products"
+                  data-source-id="${r.id}"
+                  data-name="${escapeAttr(r.name || "")}"
+                  data-image="${escapeAttr(defaultImage)}"
+                  data-color-name="${escapeAttr(defaultColorName)}"
+                  data-unit-price="${Number(r.my_price || 0)}"
+                  data-actual-price="${Number(r.actual_price || 0)}">Add to Cart</button>
+                ${whatsAppButtonHtml(r.name, r.my_price, defaultColorName, "card-action-btn")}
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        }
+      }
+
       async function applyHero(url) {
         if (!url) return;
         const hero = document.querySelector(".hero");
@@ -2615,7 +2871,7 @@
       }
 
       // ==================== CART + CHECKOUT (Supabase orders) ====================
-      const CART_KEY = "aasif_cart_v1";
+      const CART_KEY = "aasif_cart_v2";
       const DELIVERY_CHARGE = 150;
 
       const getCart = () => {
@@ -2628,7 +2884,7 @@
       const setCart = (items) => localStorage.setItem(CART_KEY, JSON.stringify(items || []));
 
       function cartKeyOf(it) {
-        return `${it.source_table}:${it.source_id}`;
+        return `${it.source_table}:${it.source_id}:${it.color_name || ""}`;
       }
 
       function addToCart(item) {
@@ -2639,11 +2895,12 @@
         else cart.push({ ...item, qty: 1 });
         setCart(cart);
         renderCart();
+        window.openCart?.();
       }
 
-      function updateQty(source_table, source_id, delta) {
+      function updateQty(source_table, source_id, color_name, delta) {
         const cart = getCart();
-        const k = `${source_table}:${source_id}`;
+        const k = `${source_table}:${source_id}:${color_name || ""}`;
         const found = cart.find((x) => cartKeyOf(x) === k);
         if (!found) return;
         const next = Number(found.qty || 1) + delta;
@@ -2656,8 +2913,9 @@
         renderCart();
       }
 
-      function removeFromCart(source_table, source_id) {
-        const cart = getCart().filter((x) => cartKeyOf(x) !== `${source_table}:${source_id}`);
+      function removeFromCart(source_table, source_id, color_name) {
+        const k = `${source_table}:${source_id}:${color_name || ""}`;
+        const cart = getCart().filter((x) => cartKeyOf(x) !== k);
         setCart(cart);
         renderCart();
       }
@@ -2696,20 +2954,21 @@
             </div>
             <div class="cart__card-info">
               <h3 class="cart__card-name">${escapeHtml(it.name || "")}</h3>
+              ${it.color_name ? `<div class="cart__card-color">${escapeHtml(it.color_name)}</div>` : ""}
               <span class="cart__card-price">${formatMoney(it.unit_price)}</span>
               <div class="cart__card-controls">
                 <div class="cart__qty">
                   <button class="cart__qty-btn" data-cart-minus="1" data-source-table="${escapeAttr(
                     it.source_table
-                  )}" data-source-id="${it.source_id}"><i class='bx bx-minus'></i></button>
+                  )}" data-source-id="${it.source_id}" data-color-name="${escapeAttr(it.color_name || "")}"><i class='bx bx-minus'></i></button>
                   <span class="cart__qty-num">${Number(it.qty || 1)}</span>
                   <button class="cart__qty-btn" data-cart-plus="1" data-source-table="${escapeAttr(
                     it.source_table
-                  )}" data-source-id="${it.source_id}"><i class='bx bx-plus'></i></button>
+                  )}" data-source-id="${it.source_id}" data-color-name="${escapeAttr(it.color_name || "")}"><i class='bx bx-plus'></i></button>
                 </div>
                 <button class="cart__delete" data-cart-remove="1" data-source-table="${escapeAttr(
                   it.source_table
-                )}" data-source-id="${it.source_id}"><i class='bx bx-trash-alt'></i></button>
+                )}" data-source-id="${it.source_id}" data-color-name="${escapeAttr(it.color_name || "")}"><i class='bx bx-trash-alt'></i></button>
               </div>
             </div>
           </article>
@@ -2718,15 +2977,25 @@
           .join("");
       }
 
-      // Add-to-cart click delegation
+      // Add-to-cart + color swatch click delegation
       document.addEventListener("click", (e) => {
+        const swatch = e.target.closest("[data-color-swatch]");
+        if (swatch) {
+          const card = swatch.closest("[data-product-card]");
+          applyColorToCard(card, swatch);
+          return;
+        }
+
         const btn = e.target.closest("[data-add-to-cart]");
         if (btn) {
+          const card = btn.closest("[data-product-card]");
+          const activeColor = card?.querySelector(".color-swatch.active");
           const item = {
             source_table: btn.getAttribute("data-source-table"),
             source_id: Number(btn.getAttribute("data-source-id")),
             name: btn.getAttribute("data-name") || "",
             image_url: btn.getAttribute("data-image") || "",
+            color_name: activeColor?.getAttribute("data-color-name") || btn.getAttribute("data-color-name") || "",
             unit_price: Number(btn.getAttribute("data-unit-price") || 0),
             actual_price: Number(btn.getAttribute("data-actual-price") || 0),
           };
@@ -2736,17 +3005,31 @@
 
         const minus = e.target.closest("[data-cart-minus]");
         if (minus) {
-          updateQty(minus.getAttribute("data-source-table"), Number(minus.getAttribute("data-source-id")), -1);
+          updateQty(
+            minus.getAttribute("data-source-table"),
+            Number(minus.getAttribute("data-source-id")),
+            minus.getAttribute("data-color-name") || "",
+            -1
+          );
           return;
         }
         const plus = e.target.closest("[data-cart-plus]");
         if (plus) {
-          updateQty(plus.getAttribute("data-source-table"), Number(plus.getAttribute("data-source-id")), +1);
+          updateQty(
+            plus.getAttribute("data-source-table"),
+            Number(plus.getAttribute("data-source-id")),
+            plus.getAttribute("data-color-name") || "",
+            +1
+          );
           return;
         }
         const rem = e.target.closest("[data-cart-remove]");
         if (rem) {
-          removeFromCart(rem.getAttribute("data-source-table"), Number(rem.getAttribute("data-source-id")));
+          removeFromCart(
+            rem.getAttribute("data-source-table"),
+            Number(rem.getAttribute("data-source-id")),
+            rem.getAttribute("data-color-name") || ""
+          );
           return;
         }
       });
@@ -2819,6 +3102,7 @@
             source_id: it.source_id,
             name: it.name,
             image_url: it.image_url,
+            color_name: it.color_name || null,
             unit_price: Number(it.unit_price || 0),
             qty: Number(it.qty || 1),
             line_total: Number(it.unit_price || 0) * Number(it.qty || 1),
@@ -2854,8 +3138,8 @@
         // Fetch dynamic content
         const [{ data: settings }, { data: featured }, { data: products }] = await Promise.all([
           supabase.from("site_settings").select("hero_image_url").eq("id", 1).maybeSingle(),
-          supabase.from("featured_timepieces").select("id,name,image_url,actual_price,my_price,created_at").order("created_at", { ascending: false }),
-          supabase.from("premium_products").select("id,name,image_url,actual_price,my_price,created_at").order("created_at", { ascending: false }),
+          supabase.from("featured_timepieces").select("id,name,image_url,actual_price,my_price,colors,created_at").order("created_at", { ascending: false }),
+          supabase.from("premium_products").select("id,name,image_url,actual_price,my_price,colors,created_at").order("created_at", { ascending: false }),
         ]);
 
         await applyHero(settings?.hero_image_url);

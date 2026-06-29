@@ -167,13 +167,22 @@
         <input type="hidden" id="itemExistingImage" />
 
         <label class="field">
-          <span>Image (optional when editing)</span>
+          <span>Main image (optional when editing)</span>
           <input id="itemFile" type="file" accept="image/*" />
         </label>
         <label class="field">
           <span>Name</span>
           <input id="itemName" type="text" required />
         </label>
+
+        <div class="colorsSection">
+          <div class="colorsSection__head">
+            <span>Colors</span>
+            <button class="btn btn--ghost btn--small" type="button" id="addColorBtn">+ Add Color</button>
+          </div>
+          <p class="colorsSection__hint">Add one or more colors. Each color can have its own image; otherwise the main image is used.</p>
+          <div class="colorRows" id="colorRows"></div>
+        </div>
         <div class="row">
           <label class="field">
             <span>Actual price (PKR)</span>
