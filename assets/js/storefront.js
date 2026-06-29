@@ -1,3 +1,5 @@
+import { getCheckoutFormData, initCheckoutAddressForm, resetCheckoutAddressForm } from "./checkoutForm.js";
+
 export const CART_KEY = "aasif_cart_v2";
 export const DELIVERY_CHARGE = 150;
 
@@ -264,6 +266,8 @@ export function initCheckout(supabase) {
 
   window.openCheckout = openCheckout;
 
+  initCheckoutAddressForm();
+
   checkoutBtn?.addEventListener("click", openCheckout);
   checkoutClose?.addEventListener("click", closeCheckout);
   checkoutOverlay?.addEventListener("click", closeCheckout);
@@ -275,10 +279,15 @@ export function initCheckout(supabase) {
     const cart = getCart();
     if (!cart.length) return;
 
-    const customer_name = document.getElementById("coName").value.trim();
-    const phone = document.getElementById("coPhone").value.trim();
-    const address = document.getElementById("coAddress").value.trim();
-    if (!customer_name || !phone || !address) return;
+    const formData = getCheckoutFormData();
+    if (!formData.valid) {
+      msg.textContent = formData.errors[0] || "Please complete all required fields.";
+      return;
+    }
+
+    const customer_name = formData.customer_name;
+    const phone = formData.phone;
+    const address = formData.address;
 
     const { subtotal, delivery, total } = calcTotals(cart);
     msg.textContent = "Placing order…";
@@ -317,6 +326,7 @@ export function initCheckout(supabase) {
       renderCart();
       msg.textContent = "Order placed successfully.";
       checkoutForm.reset();
+      resetCheckoutAddressForm();
       setTimeout(closeCheckout, 800);
     } catch (err) {
       console.error(err);

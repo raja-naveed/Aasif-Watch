@@ -592,6 +592,120 @@
             transform: translateY(-2px);
         }
 
+        /* ==================== CHECKOUT FORM ==================== */
+        #checkoutModal { width: 560px; max-width: 94vw; }
+        #checkoutModal .cart__body { padding-bottom: 28px; }
+
+        .checkout-field {
+            display: grid;
+            gap: 6px;
+        }
+
+        .checkout-field > span {
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .checkout-input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .checkout-input:focus {
+            border-color: rgba(200, 164, 94, 0.55);
+            outline: none;
+        }
+
+        select.checkout-input {
+            cursor: pointer;
+            appearance: none;
+            background-image: linear-gradient(45deg, transparent 50%, var(--text-secondary) 50%), linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%);
+            background-position: calc(100% - 18px) calc(50% + 2px), calc(100% - 12px) calc(50% + 2px);
+            background-size: 6px 6px, 6px 6px;
+            background-repeat: no-repeat;
+            padding-right: 36px;
+        }
+
+        .checkout-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .checkout-grid--2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .checkout-section {
+            margin-top: 4px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .checkout-section__head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .checkout-section__title {
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .checkout-locate-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border: 1px solid rgba(200, 164, 94, 0.35);
+            background: rgba(200, 164, 94, 0.08);
+            color: var(--primary);
+            font-size: 0.68rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checkout-locate-btn:hover {
+            background: rgba(200, 164, 94, 0.16);
+            border-color: var(--primary);
+        }
+
+        .checkout-locate-btn:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+
+        .checkout-notice {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .checkout-notice--ok { color: #7ddf9a; }
+        .checkout-notice--warn { color: #ffb07a; }
+
+        @media (max-width: 520px) {
+            .checkout-grid--2 { grid-template-columns: 1fr; }
+        }
+
         /* ==================== BUTTONS ==================== */
         .btn {
             display: inline-flex;
@@ -2041,34 +2155,69 @@
 
     <!-- ==================== CHECKOUT MODAL ==================== -->
     <div class="cart-overlay" id="checkoutOverlay" style="z-index:10002;"></div>
-    <div class="cart" id="checkoutModal" style="z-index:10003;width:520px;max-width:92vw;">
+    <div class="cart" id="checkoutModal" style="z-index:10003;">
         <div class="cart__head">
-            <h2 class="cart__heading">Checkout</h2>
+            <h2 class="cart__heading">Place Order</h2>
             <button class="cart__close" id="checkoutClose"><i class='bx bx-x'></i></button>
         </div>
         <div class="cart__body">
-            <form id="checkoutForm" style="display:flex;flex-direction:column;gap:14px;">
-                <div style="display:grid;gap:10px;">
-                    <label style="display:grid;gap:6px;">
-                        <span style="color:var(--text-secondary);font-size:0.8rem;letter-spacing:1px;">Full Name</span>
-                        <input id="coName" required style="padding:14px;border:1px solid var(--border);background:transparent;color:var(--text);" />
+            <form id="checkoutForm" style="display:flex;flex-direction:column;gap:12px;">
+                <label class="checkout-field">
+                    <span>Full Name *</span>
+                    <input id="coName" class="checkout-input" required placeholder="Your full name" autocomplete="name" />
+                </label>
+                <label class="checkout-field">
+                    <span>Mobile Number *</span>
+                    <input id="coPhone" class="checkout-input" type="tel" required placeholder="03XX XXXXXXX" autocomplete="tel" inputmode="tel" />
+                </label>
+
+                <div class="checkout-section">
+                    <div class="checkout-section__head">
+                        <span class="checkout-section__title">Delivery Address (Pakistan)</span>
+                        <button type="button" class="checkout-locate-btn" id="coLocateBtn" title="Use my live location">
+                            <i class='bx bx-map'></i> Use My Location
+                        </button>
+                    </div>
+                    <p class="checkout-notice" id="coDeliveryNotice">Delivery available in Karachi &amp; nearby areas only.</p>
+                </div>
+
+                <div class="checkout-grid checkout-grid--2">
+                    <label class="checkout-field">
+                        <span>Province *</span>
+                        <select id="coProvince" class="checkout-input" required></select>
                     </label>
-                    <label style="display:grid;gap:6px;">
-                        <span style="color:var(--text-secondary);font-size:0.8rem;letter-spacing:1px;">Phone Number</span>
-                        <input id="coPhone" required style="padding:14px;border:1px solid var(--border);background:transparent;color:var(--text);" />
-                    </label>
-                    <label style="display:grid;gap:6px;">
-                        <span style="color:var(--text-secondary);font-size:0.8rem;letter-spacing:1px;">Address</span>
-                        <input id="coAddress" required style="padding:14px;border:1px solid var(--border);background:transparent;color:var(--text);" />
+                    <label class="checkout-field">
+                        <span>City *</span>
+                        <select id="coCity" class="checkout-input" required></select>
                     </label>
                 </div>
+
+                <label class="checkout-field">
+                    <span>Area / Town *</span>
+                    <div id="coAreaWrap">
+                        <select id="coArea" class="checkout-input" required></select>
+                    </div>
+                </label>
+
+                <label class="checkout-field">
+                    <span>Street / House / Plot No. *</span>
+                    <input id="coStreet" class="checkout-input" required placeholder="e.g. House 12, Street 5, Sector 4-B" autocomplete="address-line1" />
+                </label>
+
+                <label class="checkout-field">
+                    <span>Landmark (optional)</span>
+                    <input id="coLandmark" class="checkout-input" placeholder="e.g. Near market, masjid, main road" />
+                </label>
+
+                <input type="hidden" id="coLat" />
+                <input type="hidden" id="coLng" />
 
                 <div style="border-top:1px solid var(--border);padding-top:14px;display:grid;gap:8px;">
                     <div style="display:flex;justify-content:space-between;color:var(--text-secondary);font-size:0.9rem;">
                         <span>Subtotal</span><span id="coSubtotal">PKR 0</span>
                     </div>
                     <div style="display:flex;justify-content:space-between;color:var(--text-secondary);font-size:0.9rem;">
-                        <span>Delivery</span><span id="coDelivery">PKR 150</span>
+                        <span>Delivery (Karachi &amp; nearby)</span><span id="coDelivery">PKR 150</span>
                     </div>
                     <div style="display:flex;justify-content:space-between;font-family:'Space Grotesk',sans-serif;font-weight:700;">
                         <span>Total</span><span id="coTotal">PKR 150</span>
@@ -2628,6 +2777,7 @@
     <script src="assets/js/supabaseConfig.js"></script>
     <script type="module">
       import { supabase } from "./assets/js/supabaseClient.js";
+      import { getCheckoutFormData, initCheckoutAddressForm, resetCheckoutAddressForm } from "./assets/js/checkoutForm.js";
 
       // Visible + console connection sanity check.
       const badge = document.createElement("div");
@@ -3040,6 +3190,8 @@
 
       window.openCheckout = openCheckout;
 
+      initCheckoutAddressForm();
+
       if (checkoutBtn) checkoutBtn.addEventListener("click", openCheckout);
       if (checkoutClose) checkoutClose.addEventListener("click", closeCheckout);
       if (checkoutOverlay) checkoutOverlay.addEventListener("click", closeCheckout);
@@ -3053,10 +3205,15 @@
         const cart = getCart();
         if (!cart.length) return;
 
-        const customer_name = document.getElementById("coName").value.trim();
-        const phone = document.getElementById("coPhone").value.trim();
-        const address = document.getElementById("coAddress").value.trim();
-        if (!customer_name || !phone || !address) return;
+        const formData = getCheckoutFormData();
+        if (!formData.valid) {
+          msg.textContent = formData.errors[0] || "Please complete all required fields.";
+          return;
+        }
+
+        const customer_name = formData.customer_name;
+        const phone = formData.phone;
+        const address = formData.address;
 
         const { subtotal, delivery, total } = calcTotals(cart);
         msg.textContent = "Placing order…";
@@ -3095,6 +3252,7 @@
           renderCart();
           msg.textContent = "Order placed successfully.";
           checkoutForm.reset();
+          resetCheckoutAddressForm();
           setTimeout(closeCheckout, 800);
         } catch (err) {
           console.error(err);
